@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "package": "addon.antip2w.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "client": [
+    "AnvilScreenMixin",
+    "ClientConnectionMixin",
+    "ItemEntityMixin",
+    "MinecraftClientMixin",
+    "PlayerEntityMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

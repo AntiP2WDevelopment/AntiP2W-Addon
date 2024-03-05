@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "id": "antip2w",
+  "version": "1.0.0",
+  "name": "AntiP2W-Tools",
+  "description": "Tools to help AntiP2W.",
+  "authors": [
+    "ItsMeTomTom",
+    "Exteron",
+    "DuckGuy",
+    "0x06"
+  ],
+  "contact": {
+    "repo": "https://mivanma.hu"
+  },
+  "icon": "assets/antip2w/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "meteor": [
+      "addon.antip2w.AntiP2W"
+    ]
+  },
+  "mixins": [
+    "antip2w.mixins.json"
+  ],
+  "custom": {
+    "meteor-client:color": "225,25,25"
+  },
+  "accessWidener": "antip2w.accesswidener",
+  "depends": {
+    "java": ">=17",
+    "minecraft": ">=${mc_version}",
+    "meteor-client": "*"
+  }
+}
