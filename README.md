@@ -15,13 +15,18 @@ We have some great modules against Vulcan that give 0 flags. For example:
 - Glide
 - Spider
 
+
+<details>
+<summary>
 We also have some essentials like:
+</summary>
 - Anti Vanish
 - Auto Login
 - Auto Sign Plus
 - Chat Filter
 - Packet Logger
 - Storage No Render
+</details>
 
 And we also have some modules for fun like:
 - Creative Puke 
