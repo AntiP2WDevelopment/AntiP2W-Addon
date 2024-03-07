@@ -39,5 +39,5 @@ jobs:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
           DISCORD_USERNAME: AntiP2W-Tools
           DISCORD_AVATAR: https://i.imgur.com/VvG5iFz.png
-          DISCORD_EMBEDS: '[{"title":"New Commit ➡️ Click","description":"[Download ➡️ Click](https://github.com/ItsMeTomTom/AntiP2W-Tools/actions/runs/${{ github.run_id }})","color":43690,"url":"https://github.com/ItsMeTomTom/AntiP2W-Tools/commit/${{ github.sha }}"}]'
+          DISCORD_EMBEDS: '[{"title":"New Commit ➡️ Click","description":"[Download ➡️ Click](https://github.com/AntiP2WDevelopment/AntiP2W-Addon/actions/runs/${{ github.run_id }})","color":43690,"url":"https://github.com/AntiP2WDevelopment/AntiP2W-Addon/commit/${{ github.sha }}"}]'
         uses: Ilshidur/action-discord@master

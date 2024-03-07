@@ -30,14 +30,12 @@ public class AntiP2W extends MeteorAddon {
         registerCommands();
         registerHUDs();
 
-        System.out.println("RAT says: lol (this is a joke ofc)");
+        LOG.info("RAT says: lol (this is a joke ofc)");
         LOG.info("AntiP2W addon initalization has finished");
     }
 
     private static void registerModules() {
         Modules.get().add(new AntiCrash());
-        Modules.get().add(new LiriasCaptcha());
-        Modules.get().add(new RivalsKingdoms());
         Modules.get().add(new AntiVanish());
         Modules.get().add(new AnvilUnescape());
         Modules.get().add(new AutoLogin());
@@ -49,21 +47,23 @@ public class AntiP2W extends MeteorAddon {
         Modules.get().add(new FirstClassFlight());
         Modules.get().add(new GameModeNotifier());
         Modules.get().add(new ItemGenerator());
+        Modules.get().add(new LiriasCaptcha());
         Modules.get().add(new NbtEditor());
+        Modules.get().add(new NoBlockEntities());
         Modules.get().add(new NoFall());
+        Modules.get().add(new NoItem());
         Modules.get().add(new PacketLogger());
         Modules.get().add(new Payall());
         Modules.get().add(new PingSpoof());
+        Modules.get().add(new RivalsKingdoms());
+        Modules.get().add(new RivalsPlayers());
         Modules.get().add(new ServerOpNuke());
-        Modules.get().add(new NoBlockEntities());
-        Modules.get().add(new NoItem());
         Modules.get().add(new TickShift());
         Modules.get().add(new VulcanBoatFly());
         Modules.get().add(new VulcanEFly());
         Modules.get().add(new VulcanGlide());
-        Modules.get().add(new VulcanSpider());
         Modules.get().add(new VulcanScaffold());
-        Modules.get().add(new RivalsPlayers());
+        Modules.get().add(new VulcanSpider());
 
 
         //Funny
@@ -93,6 +93,7 @@ public class AntiP2W extends MeteorAddon {
         Modules.get().add(new AutoOP());
         Modules.get().add(new BaseFinder());
         Modules.get().add(new CustomPackets());
+        Modules.get().add(new IRC());
         Modules.get().add(new PacketLoggerPlus());
         Modules.get().add(new Pl3xmapCrash());
     }
@@ -103,6 +104,7 @@ public class AntiP2W extends MeteorAddon {
         Commands.add(new DisconnectCommand());
         Commands.add(new FunnyCrash());
         Commands.add(new HotbarClearCommand());
+        Commands.add(new IRCCommand());
         Commands.add(new PlayersCommand());
         Commands.add(new ShulkerCounterCommand());
         Commands.add(new SimulateCommand());
