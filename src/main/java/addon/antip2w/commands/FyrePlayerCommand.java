@@ -12,8 +12,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class tuzemberkereso extends Command {
-    public tuzemberkereso() {
+public class FyrePlayerCommand extends Command {
+    public FyrePlayerCommand() {
         super("fyreplayer", "Does things");
     }
     @Override
