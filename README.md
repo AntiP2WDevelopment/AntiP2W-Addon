@@ -9,16 +9,23 @@ For this addon to work you need the following things:
 
 
 ## Modules
-We have some great modules against Vulcan that give 0 flags. For example:
+<details>
+<summary>
+  
+We have some great modules against Vulcan that give 0 flags.
+
+</summary>
 - Boat Fly (395 bps max)
 - Elytra Fly (elytra takes no durability, 70 bps max)
 - Glide
 - Spider
-
+</details>
 
 <details>
 <summary>
-We also have some essentials like:
+  
+We also have some essential ones:
+
 </summary>
 - Anti Vanish
 - Auto Login
@@ -28,14 +35,26 @@ We also have some essentials like:
 - Storage No Render
 </details>
 
-And we also have some modules for fun like:
+<details>
+<summary>
+  
+And we also have some modules for fun too:
+
+</summary>
 - Creative Puke 
 - Fidget Spinner
 - Minesweeper
 - Trampoline
+</details>
 
 ## Commands
+<details>
+<summary>
+  
 Some of our notable commands are: 
+
+</summary>
 - shulker-counter
 - chest
 - hotbar-clear
+</details>
