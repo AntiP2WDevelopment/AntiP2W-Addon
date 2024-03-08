@@ -48,6 +48,7 @@ public class IRCHandler {
     }
 
     private static void startAsync() {
+        ChatUtils.infoPrefix("IRC", "Connecting...");
         CompletableFuture.runAsync(() -> {
             try {
                 socket = new Socket(HOST, PORT);
@@ -64,6 +65,7 @@ public class IRCHandler {
     private static void stop() {
         try {
             socket.close();
+            ChatUtils.infoPrefix("IRC", "Disconnected");
         } catch (IOException e) {
             cleanUp(e);
         }
@@ -91,6 +93,7 @@ public class IRCHandler {
             this.socket = socket;
             this.out = out;
             this.in = in;
+            ChatUtils.infoPrefix("IRC", "Connected");
         }
 
         @Override

@@ -103,6 +103,7 @@ public class AntiP2W extends MeteorAddon {
         Commands.add(new CommandCompleteCrash());
         Commands.add(new DisconnectCommand());
         Commands.add(new FunnyCrash());
+        Commands.add(new HologramCommand());
         Commands.add(new HotbarClearCommand());
         Commands.add(new IRCCommand());
         Commands.add(new PlayersCommand());
