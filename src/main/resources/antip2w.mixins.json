@@ -3,7 +3,6 @@
   "package": "addon.antip2w.mixin",
   "compatibilityLevel": "JAVA_17",
   "client": [
-    "AnvilScreenMixin",
     "ClientConnectionMixin",
     "ItemEntityMixin",
     "MinecraftClientMixin",
