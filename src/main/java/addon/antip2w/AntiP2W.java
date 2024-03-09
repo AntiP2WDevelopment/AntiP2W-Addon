@@ -37,7 +37,6 @@ public class AntiP2W extends MeteorAddon {
     private static void registerModules() {
         Modules.get().add(new AntiCrash());
         Modules.get().add(new AntiVanish());
-        Modules.get().add(new AnvilUnescape());
         Modules.get().add(new AutoLogin());
         Modules.get().add(new AutoSignPlus());
         Modules.get().add(new ChatFilter());
@@ -58,11 +57,9 @@ public class AntiP2W extends MeteorAddon {
         Modules.get().add(new RivalsKingdoms());
         Modules.get().add(new RivalsPlayers());
         Modules.get().add(new ServerOpNuke());
-        Modules.get().add(new TickShift());
         Modules.get().add(new VulcanBoatFly());
         Modules.get().add(new VulcanEFly());
         Modules.get().add(new VulcanGlide());
-        Modules.get().add(new VulcanScaffold());
         Modules.get().add(new VulcanSpider());
 
 
@@ -89,8 +86,6 @@ public class AntiP2W extends MeteorAddon {
     }
 
     private static void registerWIPModules() {
-        Modules.get().add(new AutoFloor());
-        Modules.get().add(new AutoOP());
         Modules.get().add(new BaseFinder());
         Modules.get().add(new CustomPackets());
         Modules.get().add(new IRC());
