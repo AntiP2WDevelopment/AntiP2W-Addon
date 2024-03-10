@@ -92,6 +92,7 @@ public class AntiP2W extends MeteorAddon {
         Modules.get().add(new IRC());
         Modules.get().add(new PacketLoggerPlus());
         Modules.get().add(new Pl3xmapCrash());
+        Modules.get().add(new RivalsMatek());
     }
 
     private static void registerCommands() {
