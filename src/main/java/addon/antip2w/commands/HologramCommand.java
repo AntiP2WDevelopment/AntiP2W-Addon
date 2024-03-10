@@ -111,6 +111,7 @@ public class HologramCommand extends Command {
                     mc.interactionManager.interactBlock(mc.player, Hand.MAIN_HAND, bhr);
                 }
                 mc.interactionManager.clickCreativeStack(lastStack, 36 + mc.player.getInventory().selectedSlot);
+                ChatUtils.info("Loaded Image", image.getWidth(), image.getHeight());
 
             } catch (Exception e) {
                 ChatUtils.info("exception: %s", e);

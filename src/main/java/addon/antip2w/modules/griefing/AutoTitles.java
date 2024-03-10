@@ -207,7 +207,7 @@ public class AutoTitles extends Module {
             .build()
     );
     public AutoTitles() {
-        super(Categories.FUNNY, "Title Troll", "Puts massive text to players screen");
+        super(Categories.GRIEF, "Title Troll", "Puts massive text to players screen");
     }
 
     private CopyOnWriteArrayList<PlayerListEntry> players;

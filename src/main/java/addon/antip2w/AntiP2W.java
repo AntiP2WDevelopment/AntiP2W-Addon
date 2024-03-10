@@ -1,6 +1,7 @@
 package addon.antip2w;
 
 import addon.antip2w.commands.*;
+import addon.antip2w.commands.CreativeFunnies.CreativeFunnies;
 import addon.antip2w.hud.BrandHud;
 import addon.antip2w.modules.*;
 import addon.antip2w.modules.crash.AntiCrash;
@@ -94,8 +95,8 @@ public class AntiP2W extends MeteorAddon {
     }
 
     private static void registerCommands() {
-        Commands.add(new ChestCommand());
         Commands.add(new CommandCompleteCrash());
+        Commands.add(new CreativeFunnies());
         Commands.add(new DisconnectCommand());
         Commands.add(new FunnyCrash());
         Commands.add(new HologramCommand());
@@ -115,6 +116,7 @@ public class AntiP2W extends MeteorAddon {
     public void onRegisterCategories() {
         Modules.registerCategory(Categories.DEFAULT);
         Modules.registerCategory(Categories.FUNNY);
+        Modules.registerCategory(Categories.GRIEF);
         Modules.registerCategory(Categories.WIP);
     }
 

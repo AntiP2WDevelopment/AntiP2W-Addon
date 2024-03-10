@@ -1,5 +1,6 @@
-package addon.antip2w.modules;
+package addon.antip2w.modules.griefing;
 
+import addon.antip2w.modules.Categories;
 import meteordevelopment.meteorclient.events.game.GameLeftEvent;
 import meteordevelopment.meteorclient.settings.BoolSetting;
 import meteordevelopment.meteorclient.settings.Setting;
@@ -28,7 +29,7 @@ public class ServerOpNuke extends Module {
     private final Setting<String> altNameToOp;
 
     public ServerOpNuke() {
-        super(Categories.DEFAULT, "ServerOpNuke","Server Operator Nuker goes brrrrrrrrrrrrrrrrrrrrrrrr");
+        super(Categories.GRIEF, "ServerOpNuke","Server Operator Nuker goes brrrrrrrrrrrrrrrrrrrrrrrr");
         SettingGroup sgGeneral = settings.getDefaultGroup();
         autoDisable = sgGeneral.add(new BoolSetting.Builder()
             .name("Auto disable")

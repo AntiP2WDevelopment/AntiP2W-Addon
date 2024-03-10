@@ -191,7 +191,7 @@ public class AirstrikePlus extends Module {
 
 
     public AirstrikePlus() {
-        super(Categories.FUNNY, "Airstrike+", "Catch this fucker!");
+        super(Categories.GRIEF, "Airstrike+", "Catch this fucker!");
     }
 
     final Random r = new Random();

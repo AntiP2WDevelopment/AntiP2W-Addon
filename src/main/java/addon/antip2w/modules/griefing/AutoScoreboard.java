@@ -58,7 +58,7 @@ public class AutoScoreboard extends Module {
     );
 
     public AutoScoreboard() {
-        super(Categories.FUNNY, "Auto Scoreboard", "Prints funny stuff to the users screen");
+        super(Categories.GRIEF, "Auto Scoreboard", "Prints funny stuff to the users screen");
     }
 
     @Override

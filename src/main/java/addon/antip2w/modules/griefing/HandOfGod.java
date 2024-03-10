@@ -363,7 +363,7 @@ public class HandOfGod extends Module {
             .build()
     );
     public HandOfGod() {
-        super(Categories.FUNNY, "Hand of God", "Does funny shit with the players");
+        super(Categories.GRIEF, "Hand of God", "Does funny shit with the players");
     }
     private CopyOnWriteArrayList<PlayerListEntry> players;
     private int ticks=0;

@@ -1,7 +1,6 @@
 package addon.antip2w.modules;
 
-import java.util.ArrayList;
-import java.util.List;
+import addon.antip2w.utils.TimerUtils;
 import meteordevelopment.meteorclient.events.render.RenderBlockEntityEvent;
 import meteordevelopment.meteorclient.events.world.TickEvent;
 import meteordevelopment.meteorclient.settings.IntSetting;
@@ -10,13 +9,11 @@ import meteordevelopment.meteorclient.settings.SettingGroup;
 import meteordevelopment.meteorclient.systems.modules.Module;
 import meteordevelopment.orbit.EventHandler;
 import meteordevelopment.orbit.EventPriority;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockPos.Mutable;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.ChestBlockEntity;
 import net.minecraft.block.entity.ShulkerBoxBlockEntity;
-import addon.antip2w.utils.TimerUtils;
+import net.minecraft.util.Formatting;
+import net.minecraft.util.math.BlockPos;
 
 import java.util.HashSet;
 

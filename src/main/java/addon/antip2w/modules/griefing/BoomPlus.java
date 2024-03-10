@@ -168,7 +168,7 @@ public class BoomPlus extends Module {
     );
 
     public BoomPlus() {
-        super(Categories.FUNNY, "ANTI P2W cannon", "Shoots shit");
+        super(Categories.GRIEF, "ANTI P2W cannon", "Shoots shit");
     }
     private int aticks=0;
 
