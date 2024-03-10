@@ -64,6 +64,7 @@ public class IRCHandler {
 
     private static void stop() {
         try {
+            if(socket == null) ChatUtils.errorPrefix("IRC", "socket is somehow null?!");
             socket.close();
             ChatUtils.infoPrefix("IRC", "Disconnected");
         } catch (IOException e) {
