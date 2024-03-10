@@ -25,6 +25,7 @@ import java.io.File;
 import java.util.concurrent.CompletableFuture;
 
 import static com.mojang.brigadier.Command.SINGLE_SUCCESS;
+import static meteordevelopment.meteorclient.MeteorClient.LOG;
 import static meteordevelopment.meteorclient.MeteorClient.mc;
 
 public class HologramCommand extends Command {
@@ -88,7 +89,7 @@ public class HologramCommand extends Command {
                     entityTag.putBoolean("Invisible", true);
                     NbtList pos = new NbtList();
                     pos.add(NbtDouble.of(mc.player.getX()));
-                    pos.add(NbtDouble.of(mc.player.getY() + (height - y) * 0.25));
+                    pos.add(NbtDouble.of(mc.player.getY() + (height - y) * 0.23));
                     pos.add(NbtDouble.of(mc.player.getZ()));
                     entityTag.put("Pos", pos);
                     StringBuilder JSON = new StringBuilder("[");
@@ -115,6 +116,7 @@ public class HologramCommand extends Command {
 
             } catch (Exception e) {
                 ChatUtils.info("exception: %s", e);
+                LOG.error("", e);
             }
 
         });
