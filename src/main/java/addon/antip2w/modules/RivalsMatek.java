@@ -47,7 +47,6 @@ public class RivalsMatek extends Module {
                 int result = Integer.parseInt(mittudtomen.group(1)) - Integer.parseInt(mittudtomen.group(3));
                 string = string.replaceFirst(patternketto.pattern(), result + "");
             } szamolas(string);
-        } String string69 = string;
-        ChatUtils.info("A manócskák kiszámolták. Itt az eredmény: "+ string69);
+        } ChatUtils.info("A manócskák kiszámolták. Itt az eredmény: "+ string);
     }
 }
