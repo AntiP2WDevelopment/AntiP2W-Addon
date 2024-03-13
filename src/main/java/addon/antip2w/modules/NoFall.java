@@ -1,7 +1,6 @@
 package addon.antip2w.modules;
 
 import meteordevelopment.meteorclient.events.entity.player.SendMovementPacketsEvent;
-import meteordevelopment.meteorclient.events.world.TickEvent;
 import meteordevelopment.meteorclient.systems.modules.Module;
 import meteordevelopment.orbit.EventHandler;
 import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
@@ -9,7 +8,7 @@ import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
 public class NoFall extends Module {
 
     public NoFall() {
-        super(Categories.DEFAULT, "NoFall", "Universal NoFall (works on almost any anticheat).");
+        super(Categories.DEFAULT, "better-no-fall", "Universal No-Fall (works on almost any anticheat).");
     }
 
 

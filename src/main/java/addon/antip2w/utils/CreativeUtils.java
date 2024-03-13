@@ -2,21 +2,21 @@ package addon.antip2w.utils;
 
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayerInteractionManager;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.StringNbtReader;
 import net.minecraft.text.Text;
+import org.jetbrains.annotations.Nullable;
 
 public class CreativeUtils {
-    public static void giveItemWithNbtToEmptySlot(MinecraftClient mc, Item item, String nbt, Text customName) {
+    public static void giveItemWithNbtToEmptySlot(MinecraftClient mc, Item item, String nbt, @Nullable Text customName) {
         ItemStack stack = item.getDefaultStack();
         try {
             stack.setNbt(StringNbtReader.parse(nbt));
         } catch (CommandSyntaxException e) {
             throw new RuntimeException(e);
         }
-        stack.setCustomName(customName);
+        if(customName != null) stack.setCustomName(customName);
         if (mc.player.getMainHandStack().isEmpty())
             mc.interactionManager.clickCreativeStack(stack, 36 + mc.player.getInventory().selectedSlot);
         else {
@@ -27,14 +27,14 @@ public class CreativeUtils {
         }
     }
 
-    public static void giveItemWithNbtToSelectedSlot(MinecraftClient mc, Item item, String nbt, Text customName) {
+    public static void giveItemWithNbtToSelectedSlot(MinecraftClient mc, Item item, String nbt, @Nullable Text customName) {
         ItemStack stack = item.getDefaultStack();
         try {
             stack.setNbt(StringNbtReader.parse(nbt));
         } catch (CommandSyntaxException e) {
             throw new RuntimeException(e);
         }
-        stack.setCustomName(customName);
+        if(customName != null) stack.setCustomName(customName);
         mc.interactionManager.clickCreativeStack(stack, 36 + mc.player.getInventory().selectedSlot);
     }
 }

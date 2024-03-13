@@ -1,17 +1,17 @@
 package addon.antip2w.commands;
 
+import addon.antip2w.AntiP2W;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import meteordevelopment.meteorclient.commands.Command;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.command.CommandSource;
-import static com.mojang.brigadier.Command.SINGLE_SUCCESS;
+
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class PlayersCommand extends Command {
+import static com.mojang.brigadier.Command.SINGLE_SUCCESS;
 
-    private final MinecraftClient mc = MinecraftClient.getInstance();
+public class PlayersCommand extends Command {
 
     public PlayersCommand() {
         super("players", "Gets all the players and counts it.");
@@ -22,9 +22,9 @@ public class PlayersCommand extends Command {
         builder.executes(context -> {
             info("Getting Players.... (With ignore self)");
 
-            List<String> playerNames = Objects.requireNonNull(mc.getNetworkHandler()).getPlayerList().stream()
+            List<String> playerNames = Objects.requireNonNull(AntiP2W.MC.getNetworkHandler()).getPlayerList().stream()
                 .map(entry -> entry.getProfile().getName())
-                .filter(name -> !name.equals(mc.player.getGameProfile().getName()))
+                .filter(name -> !name.equals(AntiP2W.MC.player.getGameProfile().getName()))
                 .collect(Collectors.toList());
 
             String playerList = String.join(", ", playerNames);

@@ -1,10 +1,7 @@
 package addon.antip2w.modules;
 
 import meteordevelopment.meteorclient.events.packets.PacketEvent;
-import meteordevelopment.meteorclient.settings.BoolSetting;
-import meteordevelopment.meteorclient.settings.IntSetting;
-import meteordevelopment.meteorclient.settings.Setting;
-import meteordevelopment.meteorclient.settings.SettingGroup;
+import meteordevelopment.meteorclient.settings.*;
 import meteordevelopment.meteorclient.systems.modules.Module;
 import meteordevelopment.orbit.EventHandler;
 import net.minecraft.network.packet.Packet;
@@ -40,10 +37,18 @@ public class PingSpoof extends Module {
         .build()
     );
 
+    private final Setting<Mode> mode = settingsGeneral.add(new EnumSetting.Builder<Mode>()
+        .name("mode")
+        .description("The mode")
+        .defaultValue(Mode.FAKE)
+        .build()
+    );
+
     private final Setting<Boolean> delayKeepAlive = settingsGeneral.add(new BoolSetting.Builder()
         .name("delay-keep-alive")
         .description("Delay Keep Alive packets.")
         .defaultValue(true)
+        .visible(() -> mode.get() == Mode.FAKE)
         .build()
     );
 
@@ -51,17 +56,23 @@ public class PingSpoof extends Module {
         .name("delay-pong")
         .description("Delay Pong packets.")
         .defaultValue(true)
+        .visible(() -> mode.get() == Mode.FAKE)
         .build()
     );
 
     @EventHandler
     private void onSendPacket(PacketEvent.Send event) {
-        if (event.packet instanceof KeepAliveC2SPacket p && delayKeepAlive.get()) {
+        if (mode.get() == Mode.FAKE) {
+            if (event.packet instanceof KeepAliveC2SPacket p && delayKeepAlive.get()) {
+                event.cancel();
+                sendLater(new KeepAliveC2SPacket(p.getId()));
+            } else if (event.packet instanceof CommonPongC2SPacket p && delayPong.get()) {
+                event.cancel();
+                sendLater(new CommonPongC2SPacket(p.getParameter()));
+            }
+        } else {
+            sendLater(event.packet);
             event.cancel();
-            sendLater(new KeepAliveC2SPacket(p.getId()));
-        } else if (event.packet instanceof CommonPongC2SPacket p && delayPong.get()) {
-            event.cancel();
-            sendLater(new CommonPongC2SPacket(p.getParameter()));
         }
     }
 
@@ -73,5 +84,10 @@ public class PingSpoof extends Module {
             mc.getNetworkHandler().getConnection().send(packet, null); // bypass Meteor onSendPacket event
             executorService.shutdown();
         }, delay, TimeUnit.MILLISECONDS);
+    }
+
+    private enum Mode {
+        FAKE,
+        LEGIT
     }
 }

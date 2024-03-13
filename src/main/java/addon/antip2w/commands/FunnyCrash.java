@@ -1,11 +1,11 @@
 package addon.antip2w.commands;
 
+import addon.antip2w.AntiP2W;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import meteordevelopment.meteorclient.commands.Command;
 import meteordevelopment.meteorclient.utils.player.ChatUtils;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.command.CommandSource;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.network.packet.CustomPayload;
@@ -25,8 +25,8 @@ public class FunnyCrash extends Command {
         for (int i = 0; i < packets; i++) {
             int x = (int) ((Math.random() - 0.5) * range);
             int y = (int) ((Math.random() - 0.5) * range);
-            if (MinecraftClient.getInstance().getNetworkHandler() != null) {
-                MinecraftClient.getInstance().getNetworkHandler().sendPacket(new CustomPayloadC2SPacket(new CustomPayload() {
+            if (AntiP2W.MC.getNetworkHandler() != null) {
+                AntiP2W.MC.getNetworkHandler().sendPacket(new CustomPayloadC2SPacket(new CustomPayload() {
                     @Override
                     public void write(PacketByteBuf buf) {
                         long l = new BlockPos(x, (int) (Math.random() * 4 + 250), y).asLong();
