@@ -59,7 +59,7 @@ public class VanillaFlight extends Module {
     private Vec3d jesse_we_need_to_cook = Vec3d.ZERO;
 
     @EventHandler
-    private void onTick(TickEvent.Pre event) {
+    private void onTick(TickEvent.Post event) {
         jesse_we_need_to_cook = Vec3d.ZERO;
         double speedMul = mc.player.isSprinting() ? 1 : sprintMultiplier.get();
         Vec3d vel = PlayerUtils.getHorizontalVelocity(speed.get() * speedMul - 0.001);
