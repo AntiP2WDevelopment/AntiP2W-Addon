@@ -85,6 +85,7 @@ public class AntiP2W extends MeteorAddon {
         Modules.get().add(new PlayerNotifier());
         Modules.get().add(new Trampoline());
         Modules.get().add(new UwUChat());
+        Modules.get().add(new Radio());
     }
 
     private static void registerWIPModules() {
