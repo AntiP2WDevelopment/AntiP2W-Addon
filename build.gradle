@@ -29,6 +29,10 @@ dependencies {
     mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
+    var particlesModule = fabricApi.module("fabric-particles-v1", project.fapi_version)
+    modImplementation(particlesModule)
+    include(particlesModule)
+
     // Meteor
     modImplementation "meteordevelopment:meteor-client:${project.meteor_version}"
 

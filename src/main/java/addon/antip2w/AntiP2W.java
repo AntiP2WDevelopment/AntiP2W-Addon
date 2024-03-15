@@ -38,21 +38,32 @@ public class AntiP2W extends MeteorAddon {
     }
 
     private static void registerModules() {
+        Modules.get().add(new AirstrikePlus());
         Modules.get().add(new AntiCrash());
+        Modules.get().add(new AntiP2WRPC());
         Modules.get().add(new AntiVanish());
         Modules.get().add(new AutoLC());
         Modules.get().add(new AutoLogin());
+        Modules.get().add(new AutoScoreboard());
         Modules.get().add(new AutoSignPlus());
+        Modules.get().add(new AutoTitles());
+        Modules.get().add(new BoomPlus());
         Modules.get().add(new ChatFilter());
+        Modules.get().add(new ChestDisco());
         Modules.get().add(new CrashyCrash());
+        Modules.get().add(new CreativePuke());
         Modules.get().add(new DelayPackets());
         Modules.get().add(new DoomBoom());
         Modules.get().add(new DubCounter());
         Modules.get().add(new ExplosiveHands());
+        Modules.get().add(new FidgetSpinner());
         Modules.get().add(new FirstClassFlight());
         Modules.get().add(new GameModeNotifier());
+        Modules.get().add(new HandOfGod());
+        Modules.get().add(new IPModule());
         Modules.get().add(new ItemGenerator());
         Modules.get().add(new LiriasCaptcha());
+        Modules.get().add(new Minesweeper());
         Modules.get().add(new NbtEditor());
         Modules.get().add(new NoBlockEntities());
         Modules.get().add(new NoFall());
@@ -60,32 +71,19 @@ public class AntiP2W extends MeteorAddon {
         Modules.get().add(new PacketLogger());
         Modules.get().add(new Payall());
         Modules.get().add(new PingSpoof());
+        Modules.get().add(new PlayerNotifier());
+        Modules.get().add(new Radio());
         Modules.get().add(new RivalsKingdoms());
         Modules.get().add(new RivalsPlayers());
         Modules.get().add(new ServerOpNuke());
+        Modules.get().add(new SuperHeroFX());
+        Modules.get().add(new Trampoline());
+        Modules.get().add(new UwUChat());
         Modules.get().add(new VanillaFlight());
         Modules.get().add(new VulcanBoatFly());
         Modules.get().add(new VulcanGlide());
         Modules.get().add(new VulcanSpider());
         Modules.get().add(new WitherAdvertise());
-
-
-        //Funny
-        Modules.get().add(new AirstrikePlus());
-        Modules.get().add(new AntiP2WRPC());
-        Modules.get().add(new AutoScoreboard());
-        Modules.get().add(new AutoTitles());
-        Modules.get().add(new BoomPlus());
-        Modules.get().add(new ChestDisco());
-        Modules.get().add(new CreativePuke());
-        Modules.get().add(new FidgetSpinner());
-        Modules.get().add(new HandOfGod());
-        Modules.get().add(new IPModule());
-        Modules.get().add(new Minesweeper());
-        Modules.get().add(new PlayerNotifier());
-        Modules.get().add(new Trampoline());
-        Modules.get().add(new UwUChat());
-        Modules.get().add(new Radio());
     }
 
     private static void registerWIPModules() {
