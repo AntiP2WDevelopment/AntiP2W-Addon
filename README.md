@@ -26,12 +26,13 @@ We have some great modules against Vulcan that give 0 flags.
   
 We also have some essential ones:
 
-</summary>Anti Vanish
-- Auto Login
-- Auto Sign Plus
-- Chat Filter
-- Packet Logger
-- Storage No Render
+</summary>
+<p>- Anti Vanish</p>
+<p>- Auto Login</p>
+<p>- Auto Sign Plus</p>
+<p>- Chat Filter</p>
+<p>- Packet Logger</p>
+<p>- Storage No Render</p>
 </details>
 
 <details>
@@ -40,10 +41,10 @@ We also have some essential ones:
 And we also have some modules for fun too:
 
 </summary>
-Creative Puke 
-- Fidget Spinner
-- Minesweeper
-- Trampoline
+<p>- Creative Puke</p>
+<p>- Fidget Spinner</p>
+<p>- Minesweeper</p>
+<p>- Trampoline</p>
 </details>
 
 ## Commands
@@ -53,7 +54,7 @@ Creative Puke
 Some of our notable commands are: 
 
 </summary>
-shulker-counter
-- chest
-- hotbar-clear
+<p>- shulker-counter</p>
+<p>- chest</p>
+<p>- hotbar-clear</p>
 </details>
