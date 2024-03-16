@@ -15,10 +15,10 @@ For this addon to work you need the following things:
 We have some great modules against Vulcan that give 0 flags.
 
 </summary>
-Boat Fly (395 bps max)
-- Elytra Fly (elytra takes no durability, 70 bps max)
-- Glide
-- Spider
+<p>- Boat Fly (395 bps max)</p>
+<p>- Elytra Fly (elytra takes no durability, 70 bps max)</p>
+<p>- Glide</p>
+<p>- Spider</p>
 </details>
 
 <details>
