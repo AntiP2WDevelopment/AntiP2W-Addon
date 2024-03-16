@@ -13,10 +13,6 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class PingSpoof extends Module {
-    public PingSpoof() {
-        super(Categories.DEFAULT, "Ping Spoof", "Increases your ping.");
-    }
-
     private final SettingGroup settingsGeneral = settings.getDefaultGroup();
 
     private final Setting<Integer> desiredPing = settingsGeneral.add(new IntSetting.Builder()
@@ -59,6 +55,10 @@ public class PingSpoof extends Module {
         .visible(() -> mode.get() == Mode.FAKE)
         .build()
     );
+
+    public PingSpoof() {
+        super(Categories.DEFAULT, "Ping Spoof", "Increases your ping.");
+    }
 
     @EventHandler
     private void onSendPacket(PacketEvent.Send event) {

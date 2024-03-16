@@ -18,7 +18,6 @@ import net.minecraft.client.render.*;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.particle.DefaultParticleType;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleType;
 import net.minecraft.util.math.MathHelper;
@@ -37,7 +36,8 @@ public class SuperHeroFX extends Module {
         .name("words")
         .description("the words")
         .defaultValue("boom", "pow", "wham", "smash", "kapow", "bam", "kaboom", "thwack")
-        .build());
+        .build()
+    );
 
     public final Setting<Integer> amount = sgGeneral.add(new IntSetting.Builder()
         .name("amount")
@@ -45,26 +45,30 @@ public class SuperHeroFX extends Module {
         .range(1, 200)
         .sliderRange(1, 200)
         .defaultValue(3)
-        .build());
+        .build()
+    );
 
     public final Setting<Boolean> customColor = sgGeneral.add(new BoolSetting.Builder()
         .name("CustomColor")
         .description("use a custom color or not")
         .defaultValue(false)
-        .build());
+        .build()
+    );
 
     public final Setting<SettingColor> color = sgGeneral.add(new ColorSetting.Builder()
         .name("color")
         .description("the color (alpha is ignored)")
         .defaultValue(new SettingColor(255, 255, 255, 255))
         .visible(customColor::get)
-        .build());
+        .build()
+    );
 
     public final Setting<Boolean> shadow = sgGeneral.add(new BoolSetting.Builder()
         .name("shadow")
         .description("render the text with a shadow or not")
         .defaultValue(true)
-        .build());
+        .build()
+    );
 
     public final Setting<Double> scale = sgGeneral.add(new DoubleSetting.Builder()
         .name("scale")
@@ -72,7 +76,8 @@ public class SuperHeroFX extends Module {
         .range(0.1, 10)
         .sliderRange(0.1, 10)
         .defaultValue(1)
-        .build());
+        .build()
+    );
 
     public final Setting<Integer> lifetime = sgGeneral.add(new IntSetting.Builder()
         .name("lifetime")
@@ -80,7 +85,9 @@ public class SuperHeroFX extends Module {
         .range(0, 200)
         .sliderRange(0, 200)
         .defaultValue(20)
-        .build());
+        .build()
+    );
+
     public SuperHeroFX() {
         super(Categories.FUNNY, "SuperHeroFX", "wham bam");
         ParticleFactoryRegistry.getInstance().register(PARTICLE, SuperHeroFXParticle.Factory::new);
@@ -162,10 +169,6 @@ public class SuperHeroFX extends Module {
             public Factory(SpriteProvider spriteProvider) {
             }
 
-            public Particle createParticle(DefaultParticleType parameters, ClientWorld world, double x, double y, double z, double velocityX, double velocityY, double velocityZ) {
-                return new SuperHeroFXParticle(world, x, y, z, null, 0, false, 1, 0);
-            }
-
             @Nullable
             @Override
             public Particle createParticle(SuperHeroFXEffect parameters, ClientWorld world, double x, double y, double z, double velocityX, double velocityY, double velocityZ) {
@@ -173,8 +176,8 @@ public class SuperHeroFX extends Module {
             }
         }
 
-        public static class SuperHeroFXEffect implements ParticleEffect {
-            public static final ParticleEffect.Factory<SuperHeroFXEffect> FACTORY = new Factory<>() {
+        public record SuperHeroFXEffect(String text, int color, boolean shadow, float scale, int lifetime) implements ParticleEffect {
+            public static final Factory<SuperHeroFXEffect> FACTORY = new Factory<>() {
                 @Override
                 public SuperHeroFXEffect read(ParticleType<SuperHeroFXEffect> type, StringReader reader) {
                     return null;
@@ -185,20 +188,6 @@ public class SuperHeroFX extends Module {
                     return null;
                 }
             };
-
-            public final String text;
-            public final int color;
-            public final boolean shadow;
-            public final float scale;
-            public final int lifetime;
-
-            public SuperHeroFXEffect(String text, int color, boolean shadow, float scale, int lifetime) {
-                this.text = text;
-                this.color = color;
-                this.shadow = shadow;
-                this.scale = scale;
-                this.lifetime = lifetime;
-            }
 
             @Override
             public ParticleType<?> getType() {
@@ -211,7 +200,7 @@ public class SuperHeroFX extends Module {
 
             @Override
             public String asString() {
-                return "SuperHeroFXEffect[text = " + text + "]";
+                return toString();
             }
         }
     }

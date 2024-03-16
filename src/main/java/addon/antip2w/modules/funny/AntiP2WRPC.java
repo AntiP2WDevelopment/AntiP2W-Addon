@@ -22,16 +22,45 @@ import meteordevelopment.starscript.utils.StarscriptError;
 import java.util.List;
 
 public class AntiP2WRPC extends Module {
-    public AntiP2WRPC(){
-        super(Categories.FUNNY, "AntiP2W RPC", "");
-    }
-
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
 
-    private final Setting<String> title = sgGeneral.add(new StringSetting.Builder().name("title").description("What to display as the RPC's title.").renderer(StarscriptTextBoxRenderer.class).defaultValue("AntiP2W-Client v0.1.0").onChanged(booleanSetting -> alertTitle()).build());
-    private final Setting<List<String>> messages = sgGeneral.add(new StringListSetting.Builder().name("line-1").description("Messages for the first RPC line.").renderer(StarscriptTextBoxRenderer.class).defaultValue("Duping on {server}").build());
-    private final Setting<List<String>> messages2 = sgGeneral.add(new StringListSetting.Builder().name("line-2").description("Messages for the second RPC line.").renderer(StarscriptTextBoxRenderer.class).defaultValue("Exteron smells").build());
-    private final Setting<Integer> delay = sgGeneral.add(new IntSetting.Builder().name("update-delay").description("How many seconds before switching to a new RPC message.").defaultValue(5).min(0).sliderMax(30).build());
+    private final Setting<String> title = sgGeneral.add(new StringSetting.Builder()
+        .name("title")
+        .description("What to display as the RPC's title.")
+        .renderer(StarscriptTextBoxRenderer.class)
+        .defaultValue("AntiP2W Addon")
+        .onChanged(booleanSetting -> alertTitle())
+        .build()
+    );
+
+    private final Setting<List<String>> messages = sgGeneral.add(new StringListSetting.Builder()
+        .name("line-1")
+        .description("Messages for the first RPC line.")
+        .renderer(StarscriptTextBoxRenderer.class)
+        .defaultValue("Duping on {server}")
+        .build()
+    );
+
+    private final Setting<List<String>> messages2 = sgGeneral.add(new StringListSetting.Builder()
+        .name("line-2")
+        .description("Messages for the second RPC line.")
+        .renderer(StarscriptTextBoxRenderer.class)
+        .defaultValue("Exteron smells")
+        .build()
+    );
+
+    private final Setting<Integer> delay = sgGeneral.add(new IntSetting.Builder()
+        .name("update-delay")
+        .description("How many seconds before switching to a new RPC message.")
+        .range(0, 30)
+        .sliderRange(0, 30)
+        .defaultValue(5)
+        .build()
+    );
+
+    public AntiP2WRPC() {
+        super(Categories.FUNNY, "AntiP2W RPC", "");
+    }
 
     public static final RichPresence rpc = new RichPresence();
     private int alertDelay = 0;

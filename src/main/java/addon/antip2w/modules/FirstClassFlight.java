@@ -12,10 +12,6 @@ import meteordevelopment.orbit.EventHandler;
 //Credit to the BlackOut addon//
 
 public class FirstClassFlight extends Module {
-    public FirstClassFlight() {
-        super(Categories.DEFAULT, "FCF", "Let's do some 9/11 rn");
-    }
-
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
 
     private final Setting<FlightMode> flyMode = sgGeneral.add(new EnumSetting.Builder<FlightMode>()
@@ -24,12 +20,14 @@ public class FirstClassFlight extends Module {
         .defaultValue(FlightMode.Momentum)
         .build()
     );
+
     private final Setting<Boolean> useTimer = sgGeneral.add(new BoolSetting.Builder()
         .name("Use Timer")
         .description("Should we use timer.")
         .defaultValue(false)
         .build()
     );
+
     private final Setting<Double> timer = sgGeneral.add(new DoubleSetting.Builder()
         .visible(useTimer::get)
         .name("Timer")
@@ -40,6 +38,7 @@ public class FirstClassFlight extends Module {
         .visible(useTimer::get)
         .build()
     );
+
     private final Setting<Double> speed = sgGeneral.add(new DoubleSetting.Builder()
         .name("Speed")
         .description("How many blocks should be moved each tick.")
@@ -49,6 +48,7 @@ public class FirstClassFlight extends Module {
         .visible(() -> flyMode.get() == FlightMode.Momentum)
         .build()
     );
+
     private final Setting<Double> ySpeed = sgGeneral.add(new DoubleSetting.Builder()
         .name("Y Speed")
         .description("DA Y SPEEDOS.")
@@ -58,6 +58,7 @@ public class FirstClassFlight extends Module {
         .visible(() -> flyMode.get() == FlightMode.Momentum)
         .build()
     );
+
     private final Setting<Double> antiKickDelay = sgGeneral.add(new DoubleSetting.Builder()
         .name("Anti-Kick Delay")
         .description("How many ticks should be waited between antikick packets.")
@@ -67,6 +68,7 @@ public class FirstClassFlight extends Module {
         .visible(() -> flyMode.get() == FlightMode.Momentum)
         .build()
     );
+
     private final Setting<Double> antiKickAmount = sgGeneral.add(new DoubleSetting.Builder()
         .name("Anti-Kick Amount")
         .description("How much to move down.")
@@ -76,6 +78,7 @@ public class FirstClassFlight extends Module {
         .visible(() -> flyMode.get() == FlightMode.Momentum)
         .build()
     );
+
     private final Setting<Boolean> keepY = sgGeneral.add(new BoolSetting.Builder()
         .name("KeepY")
         .description("Should we try to keep the same y level when jump flying.")
@@ -83,6 +86,7 @@ public class FirstClassFlight extends Module {
         .visible(() -> flyMode.get() == FlightMode.Jump)
         .build()
     );
+
     private final Setting<Double> glideAmount = sgGeneral.add(new DoubleSetting.Builder()
         .name("Glide amount")
         .description("How much to glide down.")
@@ -95,6 +99,9 @@ public class FirstClassFlight extends Module {
 
     private double startY = 0.0;
     private int tick = 0;
+    public FirstClassFlight() {
+        super(Categories.DEFAULT, "FCF", "Let's do some 9/11 rn");
+    }
 
     public void onActivate() {
         if (mc.player != null && mc.world != null){

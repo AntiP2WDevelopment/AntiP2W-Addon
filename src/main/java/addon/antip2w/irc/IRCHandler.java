@@ -54,7 +54,7 @@ public class IRCHandler {
                 socket = new Socket(HOST, PORT);
                 out = new DataOutputStream(socket.getOutputStream());
                 in = new DataInputStream(socket.getInputStream());
-                SocketThread thread = new SocketThread(socket, out, in);
+                SocketThread thread = new SocketThread(in);
                 thread.start();
             } catch (IOException e) {
                 cleanUp(e);
@@ -87,12 +87,8 @@ public class IRCHandler {
 
     private static final class SocketThread extends Thread {
         private final DataInputStream in;
-        private final Socket socket;
-        private final DataOutputStream out;
 
-        public SocketThread(Socket socket, DataOutputStream out, DataInputStream in) {
-            this.socket = socket;
-            this.out = out;
+        public SocketThread(DataInputStream in) {
             this.in = in;
             ChatUtils.infoPrefix("IRC", "Connected");
         }

@@ -7,16 +7,13 @@ import meteordevelopment.meteorclient.systems.modules.Module;
 import meteordevelopment.meteorclient.utils.player.ChatUtils;
 import net.minecraft.client.network.PlayerListEntry;
 
-import java.net.http.HttpClient;
 import java.util.Map;
 
 import static addon.antip2w.utils.RivalsUtils.OpKingdomWorld;
 import static addon.antip2w.utils.RivalsUtils.getPlayerData;
 
 public class RivalsPlayers extends Module {
-
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
-    public static final HttpClient httpClient = HttpClient.newHttpClient();
 
     public final Setting<OpKingdom> mapURL = sgGeneral.add(new EnumSetting.Builder<OpKingdom>()
         .name("Map URL")
@@ -49,7 +46,6 @@ public class RivalsPlayers extends Module {
         .defaultValue(OpKingdomWorld.ALL)
         .build()
     );
-
 
     public RivalsPlayers() {
         super(Categories.DEFAULT, "RivalsNocom", "Shows player's locations lol ..........................................");

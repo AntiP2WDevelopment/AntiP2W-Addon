@@ -12,15 +12,12 @@ import net.minecraft.item.Items;
 import java.util.List;
 
 public class NoItem extends Module {
-
     public SettingGroup sgGeneral = settings.getDefaultGroup();
 
     public final Setting<List<Item>> items = sgGeneral.add(new ItemListSetting.Builder()
         .name("items")
         .description("The items not to render.")
-        .defaultValue(
-            Items.BAMBOO
-        )
+        .defaultValue(Items.BAMBOO)
         .build()
     );
 
@@ -32,5 +29,4 @@ public class NoItem extends Module {
     public void onRender(RenderItemEntityEvent event) {
         if (items.get().contains(event.itemEntity.getStack().getItem())) event.cancel();
     }
-
 }

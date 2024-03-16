@@ -1,15 +1,14 @@
 package addon.antip2w.commands;
 
-import addon.antip2w.AntiP2W;
+import addon.antip2w.utils.MCUtil;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import meteordevelopment.meteorclient.commands.Command;
 import net.minecraft.command.CommandSource;
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.network.packet.CustomPayload;
-import net.minecraft.network.packet.c2s.common.CustomPayloadC2SPacket;
 import net.minecraft.util.Identifier;
 
 import java.nio.charset.StandardCharsets;
+
+import static com.mojang.brigadier.Command.SINGLE_SUCCESS;
 
 public class WEConsoleClear extends Command {
     public WEConsoleClear() {
@@ -19,18 +18,11 @@ public class WEConsoleClear extends Command {
     @Override
     public void build(LiteralArgumentBuilder<CommandSource> builder) {
         builder.executes(ctx -> {
-            AntiP2W.MC.getNetworkHandler().sendPacket(new CustomPayloadC2SPacket(new CustomPayload() {
-                @Override
-                public void write(PacketByteBuf buf) {
-                    buf.writeBytes("v|\033\143".getBytes(StandardCharsets.UTF_8));
-                }
-
-                @Override
-                public Identifier id() {
-                    return new Identifier("worldedit", "cui");
-                }
-            }));
-            return com.mojang.brigadier.Command.SINGLE_SUCCESS;
+            MCUtil.sendPacket(MCUtil.createCustomPayloadPacket(
+                buf -> buf.writeBytes("v|\033\143".getBytes(StandardCharsets.UTF_8)),
+                new Identifier("worldedit", "cui")
+            ));
+            return SINGLE_SUCCESS;
         });
     }
 }

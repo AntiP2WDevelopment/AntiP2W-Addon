@@ -1,6 +1,7 @@
 package addon.antip2w.mixin;
 
 import addon.antip2w.modules.funny.SuperHeroFX;
+import addon.antip2w.modules.funny.SuperHeroFX.SuperHeroFXParticle.SuperHeroFXEffect;
 import meteordevelopment.meteorclient.systems.modules.Modules;
 import net.minecraft.client.network.ClientPlayerInteractionManager;
 import net.minecraft.entity.Entity;
@@ -26,7 +27,7 @@ public class ClientPlayerInteractionManagerMixin {
         Random random = target.getWorld().random;
         for (int i = 0; i < module.amount.get(); i++) {
             Vec3d pos = target.getPos();
-            SuperHeroFX.SuperHeroFXParticle.SuperHeroFXEffect effect = new SuperHeroFX.SuperHeroFXParticle.SuperHeroFXEffect(
+            SuperHeroFXEffect effect = new SuperHeroFXEffect(
                 module.words.get().get(random.nextInt(module.words.get().size())),
                 module.customColor.get() ? SuperHeroFX.packColor(module.color.get()) : SuperHeroFX.randomColor(random),
                 module.shadow.get(),

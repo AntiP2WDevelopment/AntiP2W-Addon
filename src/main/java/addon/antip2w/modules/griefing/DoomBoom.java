@@ -36,7 +36,8 @@ public class DoomBoom extends Module {
         .range(1, 127)
         .sliderRange(1, 127)
         .visible(creeper::get)
-        .build());
+        .build()
+    );
 
     private final Setting<Integer> rate = sgGeneral.add(new IntSetting.Builder()
         .name("rate")
@@ -44,7 +45,8 @@ public class DoomBoom extends Module {
         .defaultValue(1)
         .range(1, 100)
         .sliderRange(1, 100)
-        .build());
+        .build()
+    );
 
     private final Setting<Integer> range = sgGeneral.add(new IntSetting.Builder()
         .name("range")
@@ -52,7 +54,8 @@ public class DoomBoom extends Module {
         .defaultValue(100)
         .range(1, 200)
         .sliderRange(1, 200)
-        .build());
+        .build()
+    );
 
     public DoomBoom() {
         super(Categories.GRIEF, "doom-boom", "Obliterates nearby terrain");

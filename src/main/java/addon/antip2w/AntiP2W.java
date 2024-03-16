@@ -64,6 +64,7 @@ public class AntiP2W extends MeteorAddon {
         Modules.get().add(new ItemGenerator());
         Modules.get().add(new LiriasCaptcha());
         Modules.get().add(new Minesweeper());
+        Modules.get().add(new MultiUse());
         Modules.get().add(new NbtEditor());
         Modules.get().add(new NoBlockEntities());
         Modules.get().add(new NoFall());
@@ -98,7 +99,6 @@ public class AntiP2W extends MeteorAddon {
     private static void registerCommands() {
         Commands.add(new CommandCompleteCrash());
         Commands.add(new CreativeFunnies());
-        Commands.add(new DisconnectCommand());
         Commands.add(new FunnyCrash());
         Commands.add(new HologramCommand());
         Commands.add(new HotbarClearCommand());

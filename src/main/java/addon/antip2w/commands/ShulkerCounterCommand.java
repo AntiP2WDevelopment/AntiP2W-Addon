@@ -1,5 +1,6 @@
 package addon.antip2w.commands;
 
+import addon.antip2w.AntiP2W;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import meteordevelopment.meteorclient.commands.Command;
 import net.minecraft.command.CommandSource;
@@ -12,9 +13,7 @@ import net.minecraft.util.Formatting;
 import java.util.List;
 
 import static com.mojang.brigadier.Command.SINGLE_SUCCESS;
-import static meteordevelopment.meteorclient.MeteorClient.mc;
 
-@SuppressWarnings("ALL")
 public class ShulkerCounterCommand extends Command {
     private static final List<Item> SHULKERS = List.of(
         Items.SHULKER_BOX,
@@ -33,7 +32,8 @@ public class ShulkerCounterCommand extends Command {
         Items.BROWN_SHULKER_BOX,
         Items.GREEN_SHULKER_BOX,
         Items.RED_SHULKER_BOX,
-        Items.BLACK_SHULKER_BOX);
+        Items.BLACK_SHULKER_BOX
+    );
 
     public ShulkerCounterCommand() {
         super("shulker-counter", "Counts every shulker item on the ground.");
@@ -42,10 +42,11 @@ public class ShulkerCounterCommand extends Command {
     public void build(LiteralArgumentBuilder<CommandSource> builder) {
         builder.executes(context -> {
             int count = 0;
-            for (Entity entity : mc.world.getEntities()) {
-                if (!(entity instanceof ItemEntity item) || !SHULKERS.contains(item.getStack().getItem())) continue;
-                count += 1;
+            for (Entity entity : AntiP2W.MC.world.getEntities()) {
+                if (entity instanceof ItemEntity item && SHULKERS.contains(item.getStack().getItem()))
+                    count += 1;
             }
+
             info("There are " + Formatting.WHITE + count + " shulkers on the ground.");
             return SINGLE_SUCCESS;
         });

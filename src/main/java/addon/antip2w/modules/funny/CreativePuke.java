@@ -1,6 +1,7 @@
 package addon.antip2w.modules.funny;
 
 import addon.antip2w.modules.Categories;
+import addon.antip2w.utils.MCUtil;
 import meteordevelopment.meteorclient.events.world.TickEvent;
 import meteordevelopment.meteorclient.settings.*;
 import meteordevelopment.meteorclient.systems.modules.Module;
@@ -17,10 +18,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 
 public class CreativePuke extends Module {
-    public CreativePuke() {
-        super(Categories.FUNNY, "Creative Puke", "Pukes items out of your mouth.");
-    }
-
     private final SettingGroup settingsGeneral = settings.getDefaultGroup();
 
     private final Setting<Boolean> randomItem = settingsGeneral.add(new BoolSetting.Builder()
@@ -61,6 +58,10 @@ public class CreativePuke extends Module {
         .build()
     );
 
+    public CreativePuke() {
+        super(Categories.FUNNY, "Creative Puke", "Pukes items out of your mouth.");
+    }
+
     private ItemStack pack(ItemStack stack) {
         ItemStack box = Items.SHULKER_BOX.getDefaultStack();
         NbtCompound boxNbt = new NbtCompound();
@@ -86,7 +87,8 @@ public class CreativePuke extends Module {
         int selectedSlot = mc.player.getInventory().selectedSlot;
         for (int i = 0; i < rate.get(); i++) {
             ItemStack stack;
-            if(randomItem.get()) stack = new ItemStack(Registries.ITEM.getRandom(mc.player.getRandom()).get().value(), 64);
+            if(randomItem.get())
+                stack = new ItemStack(Registries.ITEM.getRandom(mc.player.getRandom()).get().value(), 64);
             else stack = new ItemStack(item.get(), 64);
             if(applyGlint.get()) {
                 NbtList real = new NbtList();
@@ -96,9 +98,8 @@ public class CreativePuke extends Module {
             if(pack.get()) {
                 stack = pack(stack);
             }
-            mc.getNetworkHandler().sendPacket(new CreativeInventoryActionC2SPacket(36 + selectedSlot, stack));
-            mc.getNetworkHandler().sendPacket(new PlayerActionC2SPacket(PlayerActionC2SPacket.Action.DROP_ALL_ITEMS, BlockPos.ORIGIN, Direction.DOWN));
+            MCUtil.sendPacket(new CreativeInventoryActionC2SPacket(36 + selectedSlot, stack));
+            MCUtil.sendPacket(new PlayerActionC2SPacket(PlayerActionC2SPacket.Action.DROP_ALL_ITEMS, BlockPos.ORIGIN, Direction.DOWN));
         }
-        //mc.getNetworkHandler().sendPacket(new CreativeInventoryActionC2SPacket(-1, Items.GOLDEN_SWORD.getDefaultStack()));
     }
 }

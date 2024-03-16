@@ -15,10 +15,6 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class ItemGenerator extends Module {
-    public ItemGenerator() {
-        super(Categories.DEFAULT, "ItemGenerator", "Generates items as you like.");
-    }
-
     private final SettingGroup sgGeneral = settings.createGroup("Main");
     private final SettingGroup sgName = settings.createGroup("Name");
     private final SettingGroup sgEnchants = settings.createGroup("Enchants");
@@ -41,8 +37,8 @@ public class ItemGenerator extends Module {
         .build()
     );
 
-
     //Name
+
     private final Setting<Boolean> CustomName = sgName.add(new BoolSetting.Builder()
         .name("CustomName")
         .description("If to place the frame back")
@@ -106,6 +102,7 @@ public class ItemGenerator extends Module {
     );
 
     //Lore
+
     private final Setting<Boolean> CustomLore = sgName.add(new BoolSetting.Builder()
         .name("CustomLore")
         .description("If to place the frame back")
@@ -168,8 +165,8 @@ public class ItemGenerator extends Module {
         .build()
     );
 
-
     //Enchants
+
     private final Setting<Boolean> Enchantment = sgEnchants.add(new BoolSetting.Builder()
         .name("Enchantment?!")
         .description("If to place the frame back")
@@ -197,6 +194,7 @@ public class ItemGenerator extends Module {
 
 
     //Extras
+
     private final Setting<Boolean> Extras = sgExtras.add(new BoolSetting.Builder()
         .name("Extras")
         .description("If to place the frame back")
@@ -285,8 +283,8 @@ public class ItemGenerator extends Module {
         .build()
     );
 
-
     //Attributes
+
     private final Setting<Boolean> Attributes = sgAttributes.add(new BoolSetting.Builder()
         .name("Attributes")
         .description("If to place the frame back")
@@ -620,55 +618,12 @@ public class ItemGenerator extends Module {
         .build()
     );
 
-    public enum NameColor {
-        dark_red, red, gold, yellow, dark_green, green, aqua, dark_aqua, dark_blue, blue, light_purple, dark_purple, white, gray, dark_gray, black
-    }
-
-    public enum LoreColor {
-        dark_red, red, gold, yellow, dark_green, green, aqua, dark_aqua, dark_blue, blue, light_purple, dark_purple, white, gray, dark_gray, black
-    }
-
-    public enum ArmorSlot {
-        AnySlot, mainhand, offhand, head, chest, legs, feet
-    }
-    public enum ArmorToughnessSlot {
-        AnySlot, mainhand, offhand, head, chest, legs, feet
-    }
-    public enum AttackDamageSlot {
-        AnySlot, mainhand, offhand, head, chest, legs, feet
-    }
-    public enum AttackKnockbackSlot {
-        AnySlot, mainhand, offhand, head, chest, legs, feet
-    }
-    public enum AttackSpeedSlot {
-        AnySlot, mainhand, offhand, head, chest, legs, feet
-    }
-    public enum FlyingSpeedSlot {
-        AnySlot, mainhand, offhand, head, chest, legs, feet
-    }
-    public enum JumpStrengthSlot {
-        AnySlot, mainhand, offhand, head, chest, legs, feet
-    }
-    public enum KnockbackresistanceSlot {
-        AnySlot, mainhand, offhand, head, chest, legs, feet
-    }
-    public enum LuckSlot {
-        AnySlot, mainhand, offhand, head, chest, legs, feet
-    }
-    public enum MaxHealthSlot {
-        AnySlot, mainhand, offhand, head, chest, legs, feet
-    }
-    public enum FollowRangeSlot {
-        AnySlot, mainhand, offhand, head, chest, legs, feet
-    }
-    public enum MovementSpeedSlot {
-        AnySlot, mainhand, offhand, head, chest, legs, feet
-    }
-    public enum SpawnReinforcementsSlot {
-        AnySlot, mainhand, offhand, head, chest, legs, feet
+    public ItemGenerator() {
+        super(Categories.DEFAULT, "ItemGenerator", "Generates items as you like.");
     }
 
     private static final HashMap<Enchantment, String> enchantmentIds = new HashMap<>();
+
     static {
         enchantmentIds.put(Enchantments.SHARPNESS, "sharpness");
         enchantmentIds.put(Enchantments.PROTECTION, "protection");
@@ -709,7 +664,6 @@ public class ItemGenerator extends Module {
         enchantmentIds.put(Enchantments.MENDING, "medning");
         enchantmentIds.put(Enchantments.VANISHING_CURSE, "vanishing_curse");
     }
-
     public void onActivate() {
         List<Item> itemList = item.get();
 
@@ -1032,5 +986,53 @@ public class ItemGenerator extends Module {
         }
         ChatUtils.sendPlayerMsg(command + " " + ItemCount.get());
         toggle();
+    }
+
+    public enum NameColor {
+        dark_red, red, gold, yellow, dark_green, green, aqua, dark_aqua, dark_blue, blue, light_purple, dark_purple, white, gray, dark_gray, black
+    }
+
+    public enum LoreColor {
+        dark_red, red, gold, yellow, dark_green, green, aqua, dark_aqua, dark_blue, blue, light_purple, dark_purple, white, gray, dark_gray, black
+    }
+
+    public enum ArmorSlot {
+        AnySlot, mainhand, offhand, head, chest, legs, feet
+    }
+    public enum ArmorToughnessSlot {
+        AnySlot, mainhand, offhand, head, chest, legs, feet
+    }
+    public enum AttackDamageSlot {
+        AnySlot, mainhand, offhand, head, chest, legs, feet
+    }
+    public enum AttackKnockbackSlot {
+        AnySlot, mainhand, offhand, head, chest, legs, feet
+    }
+    public enum AttackSpeedSlot {
+        AnySlot, mainhand, offhand, head, chest, legs, feet
+    }
+    public enum FlyingSpeedSlot {
+        AnySlot, mainhand, offhand, head, chest, legs, feet
+    }
+    public enum JumpStrengthSlot {
+        AnySlot, mainhand, offhand, head, chest, legs, feet
+    }
+    public enum KnockbackresistanceSlot {
+        AnySlot, mainhand, offhand, head, chest, legs, feet
+    }
+    public enum LuckSlot {
+        AnySlot, mainhand, offhand, head, chest, legs, feet
+    }
+    public enum MaxHealthSlot {
+        AnySlot, mainhand, offhand, head, chest, legs, feet
+    }
+    public enum FollowRangeSlot {
+        AnySlot, mainhand, offhand, head, chest, legs, feet
+    }
+    public enum MovementSpeedSlot {
+        AnySlot, mainhand, offhand, head, chest, legs, feet
+    }
+    public enum SpawnReinforcementsSlot {
+        AnySlot, mainhand, offhand, head, chest, legs, feet
     }
 }

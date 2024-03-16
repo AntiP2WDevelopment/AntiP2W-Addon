@@ -12,8 +12,6 @@ import meteordevelopment.orbit.EventPriority;
 import java.util.ArrayList;
 
 public class AutoLogin extends Module {
-
-
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
 
     private final Setting<String> password = sgGeneral.add(new StringSetting.Builder()
@@ -23,10 +21,12 @@ public class AutoLogin extends Module {
         .build()
     );
 
-    private final ArrayList<String> loginMessages = new ArrayList<String>() {{
-        add("/login ");
-        add("/login <password>");
-    }};
+    private static final ArrayList<String> loginMessages = new ArrayList<>();
+
+    static {
+        loginMessages.add("/login ");
+        loginMessages.add("/login <password>");
+    }
 
     private final Setting<String> command = sgGeneral.add(new StringSetting.Builder()
         .name("command")
@@ -38,7 +38,6 @@ public class AutoLogin extends Module {
     public AutoLogin() {
         super(Categories.DEFAULT, "auto-login", "Automatically log into servers with the specified command");
     }
-
 
     @EventHandler(priority = EventPriority.HIGHEST)
     private void onMessageRecieve(ReceiveMessageEvent event) {

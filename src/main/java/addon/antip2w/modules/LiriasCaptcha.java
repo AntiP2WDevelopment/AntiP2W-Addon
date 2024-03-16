@@ -9,7 +9,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class LiriasCaptcha extends Module {
-
     private static final Pattern pattern = Pattern.compile("/captcha ([a-zA-Z0-9]{5})");
 
     public LiriasCaptcha() {

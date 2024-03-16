@@ -26,13 +26,15 @@ public class WitherAdvertise extends Module {
         .name("name")
         .description("of the withers")
         .defaultValue("AntiP2W Addon on top!")
-        .build());
+        .build()
+    );
 
     private final Setting<String> color = sgGeneral.add(new StringSetting.Builder()
         .name("color")
         .description("of the name")
         .defaultValue("#FF0000")
-        .build());
+        .build()
+    );
 
     private final Setting<Integer> amount = sgGeneral.add(new IntSetting.Builder()
         .name("amount")
@@ -40,7 +42,8 @@ public class WitherAdvertise extends Module {
         .defaultValue(1)
         .range(1, 100)
         .sliderRange(1, 100)
-        .build());
+        .build()
+    );
 
     private final Setting<Integer> range = sgGeneral.add(new IntSetting.Builder()
         .name("range")
@@ -48,7 +51,8 @@ public class WitherAdvertise extends Module {
         .defaultValue(100)
         .range(1, 200)
         .sliderRange(1, 200)
-        .build());
+        .build()
+    );
 
     public WitherAdvertise() {
         super(Categories.GRIEF, "wither-advertise", "spawns withers nearby with a name");

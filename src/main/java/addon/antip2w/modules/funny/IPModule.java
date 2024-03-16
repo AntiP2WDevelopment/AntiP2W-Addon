@@ -14,7 +14,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class IPModule extends Module {
-
     private final SettingGroup sgGeneral = settings.createGroup("General");
 
     private final Setting<Boolean> sendToAll = sgGeneral.add(new BoolSetting.Builder()

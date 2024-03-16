@@ -12,22 +12,25 @@ public class ChatFilter extends Module {
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
 
     private final Setting<List<String>> filters = sgGeneral.add(new StringListSetting.Builder()
-            .name("filters")
-            .description("The contents to check if a message matches.")
-            .defaultValue()
-            .build());
+        .name("filters")
+        .description("The contents to check if a message matches.")
+        .defaultValue()
+        .build()
+    );
 
     private final Setting<StringComparisonType> comparisonType = sgGeneral.add(new EnumSetting.Builder<StringComparisonType>()
-            .name("comparison")
-            .description("How to determine if the message should be hidden.")
-            .defaultValue(StringComparisonType.Contains)
-            .build());
+        .name("comparison")
+        .description("How to determine if the message should be hidden.")
+        .defaultValue(StringComparisonType.Contains)
+        .build()
+    );
 
     private final Setting<Boolean> ignoreCase = sgGeneral.add(new BoolSetting.Builder()
-            .name("ignore-case")
-            .description("Whether the checking should ignore character casing.")
-            .defaultValue(true)
-            .build());
+        .name("ignore-case")
+        .description("Whether the checking should ignore character casing.")
+        .defaultValue(true)
+        .build()
+    );
 
     public ChatFilter() {
         super(Categories.DEFAULT, "ChatFilter", "Prevent messages from displaying. Useful for hiding automated messages.");

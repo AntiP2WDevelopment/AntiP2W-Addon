@@ -28,6 +28,7 @@ public class FidgetSpinner extends Module {
     );
 
     private double yaw = 0;
+
     public FidgetSpinner() {
         super(Categories.FUNNY, "Fidget Spinner", "Makes you spin right round.");
     }
@@ -35,7 +36,10 @@ public class FidgetSpinner extends Module {
     @EventHandler
     public void onTick(TickEvent.Post event) {
         Modules modules = Modules.get();
-        if (!modules.isActive(EXPThrower.class) && !modules.isActive(Quiver.class) && !modules.isActive(EXPThrower.class)) {
+        if (!modules.isActive(EXPThrower.class) &&
+            !modules.isActive(Quiver.class) &&
+            !modules.isActive(EXPThrower.class)
+        ) {
             yaw = MathHelper.wrapDegrees(yaw + speed.get());
             Rotations.rotate(yaw, 0.0);
         }

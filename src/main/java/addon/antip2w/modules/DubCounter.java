@@ -28,12 +28,12 @@ public class DubCounter extends Module {
     public SettingGroup sgGeneral = settings.getDefaultGroup();
 
     private final Setting<Integer> loadTime = sgGeneral.add(new IntSetting.Builder()
-            .name("load-time")
-            .description("How much time it's going to take to load all the dubs. (useful if there are dubs out of render distance so you can load them or if you have a performance mod)")
-            .defaultValue(Integer.valueOf(1))
-            .min(1)
-            .sliderMax(60)
-            .build()
+        .name("load-time")
+        .description("How much time it's going to take to load all the dubs. (useful if there are dubs out of render distance so you can load them or if you have a performance mod)")
+        .defaultValue(Integer.valueOf(1))
+        .min(1)
+        .sliderMax(60)
+        .build()
     );
     public DubCounter() {
         super(Categories.DEFAULT, "dub-counter", "Counts how many dubs are in render distance.");

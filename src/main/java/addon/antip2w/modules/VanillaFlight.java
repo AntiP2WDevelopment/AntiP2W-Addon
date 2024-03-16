@@ -1,5 +1,6 @@
 package addon.antip2w.modules;
 
+import addon.antip2w.utils.MCUtil;
 import meteordevelopment.meteorclient.events.entity.player.PlayerMoveEvent;
 import meteordevelopment.meteorclient.events.world.TickEvent;
 import meteordevelopment.meteorclient.mixin.ClientPlayerEntityAccessor;
@@ -68,7 +69,7 @@ public class VanillaFlight extends Module {
         if (mc.options.jumpKey.isPressed()) vely += (vertSpeed.get() + 0.001) * speedMul / 20;
         if (mc.options.sneakKey.isPressed()) vely -= (vertSpeed.get() + 0.001) * speedMul / 20;
         if (t % 20 == 0) if (canMoveHorizontally(-0.035)) {
-            mc.getNetworkHandler().sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(mc.player.getX(), mc.player.getY() - 0.035, mc.player.getZ(), false));
+            MCUtil.sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(mc.player.getX(), mc.player.getY() - 0.035, mc.player.getZ(), false));
             ((ClientPlayerEntityAccessor) mc.player).setTicksSinceLastPositionPacketSent(19);
         }
         jesse_we_need_to_cook = vel.add(0, vely, 0);

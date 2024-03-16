@@ -1,26 +1,23 @@
 package addon.antip2w.modules.funny;
 
-import java.util.List;
-import java.util.Objects;
-
 import addon.antip2w.modules.Categories;
 import meteordevelopment.meteorclient.events.render.RenderBlockEntityEvent;
 import meteordevelopment.meteorclient.events.world.TickEvent;
-import meteordevelopment.meteorclient.settings.*;
+import meteordevelopment.meteorclient.settings.IntSetting;
+import meteordevelopment.meteorclient.settings.Setting;
+import meteordevelopment.meteorclient.settings.SettingGroup;
+import meteordevelopment.meteorclient.settings.StorageBlockListSetting;
 import meteordevelopment.meteorclient.systems.modules.Module;
 import meteordevelopment.meteorclient.utils.player.PlayerUtils;
 import meteordevelopment.orbit.EventHandler;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 
-public class ChestDisco extends Module {
+import java.util.List;
 
+public class ChestDisco extends Module {
     public SettingGroup sgGeneral = this.settings.getDefaultGroup();
     public SettingGroup sgParty = this.settings.createGroup("Party Mode");
-
-    public ChestDisco() {
-        super(Categories.FUNNY, "Chest-disco", "does idk");
-    }
 
     private final Setting<Integer> partyModeMin = sgGeneral.add(new IntSetting.Builder()
             .name("party-min-radius")
@@ -49,23 +46,27 @@ public class ChestDisco extends Module {
             .build()
     );
 
+    public ChestDisco() {
+        super(Categories.FUNNY, "Chest-disco", "does idk");
+    }
+
     public boolean retreat = false;
-    int chestdiscoradius = 0;
+    private int chestdiscoradius = 0;
 
     @EventHandler
     private void onTick(TickEvent.Pre event) {
-        if (((Integer)this.partyModeMin.get()).intValue() > ((Integer)this.partyModeMax.get()).intValue()) {
-            info("The party mode minimum can't be bigger than the party mode maximum, setting the minimum to 0...", new Object[0]);
-            this.partyModeMin.set(Integer.valueOf(0));
+        if (this.partyModeMin.get() > this.partyModeMax.get()) {
+            info("The party mode minimum can't be bigger than the party mode maximum, setting the minimum to 0...");
+            this.partyModeMin.set(0);
             return;
         }
         if (this.retreat) {
-            if (Objects.equals(chestdiscoradius, this.partyModeMin.get())) {
+            if (chestdiscoradius == this.partyModeMin.get()) {
                 this.retreat = false;
                 return;
             }
             chestdiscoradius--;
-        } else if (chestdiscoradius >= ((Integer)this.partyModeMax.get()).intValue()) {
+        } else if (chestdiscoradius >= this.partyModeMax.get()) {
             this.retreat = true;
         } else {
             chestdiscoradius++;

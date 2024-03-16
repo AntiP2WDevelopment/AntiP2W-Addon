@@ -1,6 +1,7 @@
 package addon.antip2w.modules.griefing;
 
 import addon.antip2w.modules.Categories;
+import addon.antip2w.utils.MCUtil;
 import meteordevelopment.meteorclient.events.game.GameLeftEvent;
 import meteordevelopment.meteorclient.settings.BoolSetting;
 import meteordevelopment.meteorclient.settings.Setting;
@@ -18,82 +19,82 @@ import java.util.List;
 import java.util.Objects;
 
 public class ServerOpNuke extends Module {
-    private final Setting<Boolean> autoDisable;
-    private final Setting<Boolean> opAlt;
-    private final Setting<Boolean> stopServer;
-    private final Setting<Boolean> deopAllPlayers;
-    private final Setting<Boolean> opAllPlayers;
-    private final Setting<Boolean> clearAllPlayersInv;
-    private final Setting<Boolean> banAllPlayers;
-    private final Setting<Boolean> ipBanAllPlayers;
-    private final Setting<String> altNameToOp;
+    private final SettingGroup sgGeneral = settings.getDefaultGroup();
+
+    private final Setting<Boolean> autoDisable = sgGeneral.add(new BoolSetting.Builder()
+        .name("Auto disable")
+        .description("Automatically disables the module on server kick.")
+        .defaultValue(true)
+        .build()
+    );
+
+    private final Setting<Boolean> opAlt = sgGeneral.add(new BoolSetting.Builder()
+        .name("Op alt")
+        .description("Give your alt account operator.")
+        .defaultValue(true)
+        .build()
+    );
+
+    private final Setting<Boolean> stopServer = sgGeneral.add(new BoolSetting.Builder()
+        .name("Stop server")
+        .description("Runs the /stop command.")
+        .defaultValue(false)
+        .build()
+    );
+
+    private final Setting<Boolean> deopAllPlayers = sgGeneral.add(new BoolSetting.Builder()
+        .name("Deop all players")
+        .description("Removes all online players operator status'.")
+        .defaultValue(true)
+        .build()
+    );
+
+    private final Setting<Boolean> opAllPlayers = sgGeneral.add(new BoolSetting.Builder()
+        .name("Op all players")
+        .description("Makes Everyone op")
+        .defaultValue(false)
+        .build()
+    );
+
+    private final Setting<Boolean> clearAllPlayersInv = sgGeneral.add(new BoolSetting.Builder()
+        .name("Clear all players inventory")
+        .description("Will clear all online players inventories.")
+        .defaultValue(false)
+        .build()
+    );
+
+    private final Setting<Boolean> banAllPlayers = sgGeneral.add(new BoolSetting.Builder()
+        .name("Ban all players")
+        .description("Automatically bans all online players except yourself.")
+        .defaultValue(false)
+        .build()
+    );
+
+    private final Setting<Boolean> ipBanAllPlayers = sgGeneral.add(new BoolSetting.Builder()
+        .name("IP Ban all players")
+        .description("Automatically IP bans all online players except yourself.")
+        .defaultValue(false)
+        .visible(banAllPlayers::get)
+        .build()
+    );
+
+    private final Setting<String> altNameToOp = sgGeneral.add(new StringSetting.Builder()
+        .name("Alt account username.")
+        .description("The name of your alt to op.")
+        .defaultValue("ItsMeTomTom")
+        .visible(opAlt::get)
+        .build()
+    );
 
     public ServerOpNuke() {
         super(Categories.GRIEF, "ServerOpNuke","Server Operator Nuker goes brrrrrrrrrrrrrrrrrrrrrrrr");
-        SettingGroup sgGeneral = settings.getDefaultGroup();
-        autoDisable = sgGeneral.add(new BoolSetting.Builder()
-            .name("Auto disable")
-            .description("Automatically disables the module on server kick.")
-            .defaultValue(true)
-            .build()
-        );
-        banAllPlayers = sgGeneral.add(new BoolSetting.Builder()
-            .name("Ban all players")
-            .description("Automatically bans all online players except yourself.")
-            .defaultValue(false)
-            .build()
-        );
-        ipBanAllPlayers = sgGeneral.add(new BoolSetting.Builder()
-            .name("IP Ban all players")
-            .description("Automatically IP bans all online players except yourself.")
-            .defaultValue(false)
-            .visible(banAllPlayers::get)
-            .build()
-        );
-        opAlt = sgGeneral.add(new BoolSetting.Builder()
-            .name("Op alt")
-            .description("Give your alt account operator.")
-            .defaultValue(true)
-            .build()
-        );
-        stopServer = sgGeneral.add(new BoolSetting.Builder()
-            .name("Stop server")
-            .description("Runs the /stop command.")
-            .defaultValue(false)
-            .build()
-        );
-        clearAllPlayersInv = sgGeneral.add(new BoolSetting.Builder()
-            .name("Clear all players inventory")
-            .description("Will clear all online players inventories.")
-            .defaultValue(false)
-            .build()
-        );
-        deopAllPlayers = sgGeneral.add(new BoolSetting.Builder()
-            .name("Deop all players")
-            .description("Removes all online players operator status'.")
-            .defaultValue(true)
-            .build()
-        );
-        opAllPlayers = sgGeneral.add(new BoolSetting.Builder()
-            .name("Op all players")
-            .description("Makes Everyone op")
-            .defaultValue(false)
-            .build()
-        );
-        altNameToOp = sgGeneral.add(new StringSetting.Builder()
-            .name("Alt account username.")
-            .description("The name of your alt to op.")
-            .defaultValue("ItsMeTomTom")
-            .visible(opAlt::get)
-            .build()
-        );
     }
 
     public ArrayList<PlayerListEntry> getPlayerList() {
         ArrayList<PlayerListEntry> playerList = new ArrayList<>();
 
         if (mc.world != null) {
-            Collection<PlayerListEntry> players = Objects.requireNonNull(mc.getNetworkHandler()).getPlayerList();
+            Collection<PlayerListEntry> players = MCUtil.networkHandler().getPlayerList();
             playerList.addAll(players);
         }
 

@@ -13,10 +13,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 public class Payall extends Module {
-
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
 
     private final Setting<String> command = sgGeneral.add(new StringSetting.Builder()
@@ -49,7 +47,6 @@ public class Payall extends Module {
         .build()
     );
 
-    private static int playerIndex = 0;
     private static int ticks = 0;
     private static Iterator<String> playerList;
 
@@ -76,7 +73,6 @@ public class Payall extends Module {
         if (ticks >= delay.get()+(Math.random()*10)) {
             String message = command.get() + " " + playerList.next() + " " + money.get();
             ChatUtils.sendPlayerMsg(message);
-            System.out.println("Sent command: " + message);
             ticks = 0;
         } else {
             ticks++;

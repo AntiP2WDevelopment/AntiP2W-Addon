@@ -26,168 +26,206 @@ public class AirstrikePlus extends Module {
     private final SettingGroup sgOptions = settings.createGroup("Nbt Options");
 
     private final Setting<Boolean> disconnectdisable = sgGeneral.add(new BoolSetting.Builder()
-            .name("Disable on Disconnect")
-            .description("Disables module on disconnecting")
-            .defaultValue(false)
-            .build());
+        .name("Disable on Disconnect")
+        .description("Disables module on disconnecting")
+        .defaultValue(false)
+        .build()
+    );
+
     private final Setting<String> entity = sgGeneral.add(new StringSetting.Builder()
-            .name("Entity to Spawn")
-            .description("What is created. Ex: fireball, villager, minecart, lightning_bolt, magma_cube, tnt")
-            .defaultValue("fireball")
-            .build());
+        .name("Entity to Spawn")
+        .description("What is created. Ex: fireball, villager, minecart, lightning_bolt, magma_cube, tnt")
+        .defaultValue("fireball")
+        .build()
+    );
+
     private final Setting<Boolean> mixer = sgGeneral.add(new BoolSetting.Builder()
-            .name("Mixer")
-            .description("Mixes entities.")
-            .defaultValue(false)
-            .build());
+        .name("Mixer")
+        .description("Mixes entities.")
+        .defaultValue(false)
+        .build()
+    );
+
     private final Setting<String> entity2 = sgGeneral.add(new StringSetting.Builder()
-            .name("Entity2 to Spawn")
-            .description("What is created. Ex: fireball, villager, minecart, lightning_bolt, magma_cube, tnt")
-            .defaultValue("wither")
-            .visible(() -> mixer.get())
-            .build());
+        .name("Entity2 to Spawn")
+        .description("What is created. Ex: fireball, villager, minecart, lightning_bolt, magma_cube, tnt")
+        .defaultValue("wither")
+        .visible(mixer::get)
+        .build()
+    );
+
     private final Setting<String> nom = sgGeneral.add(new StringSetting.Builder()
-            .name("Custom Name")
-            .description("Name the Entity")
-            .defaultValue("Exteron").build());
+        .name("Custom Name")
+        .description("Name the Entity")
+        .defaultValue("Exteron").build()
+    );
+
     private final Setting<String> nomcolor = sgGeneral.add(new StringSetting.Builder()
-            .name("Custom Name Color")
-            .description("Color the Name")
-            .defaultValue("red")
-            .build());
+        .name("Custom Name Color")
+        .description("Color the Name")
+        .defaultValue("red")
+        .build()
+    );
+
     public final Setting<Boolean> customname = sgOptions.add(new BoolSetting.Builder()
-            .name("CustomNameVisible")
-            .description("CustomNameVisible or not.")
-            .defaultValue(true)
-            .build()
+        .name("CustomNameVisible")
+        .description("CustomNameVisible or not.")
+        .defaultValue(true)
+        .build()
     );
+
     private final Setting<Integer> health = sgOptions.add(new IntSetting.Builder()
-            .name("Health Points")
-            .description("How much health.")
-            .defaultValue(100)
-            .min(0)
-            .sliderRange(0, 100)
-            .build());
+        .name("Health Points")
+        .description("How much health.")
+        .defaultValue(100)
+        .min(0)
+        .sliderRange(0, 100)
+        .build()
+    );
+
     private final Setting<Integer> absorption = sgOptions.add(new IntSetting.Builder()
-            .name("Absorption Points")
-            .description("How much absorption.")
-            .defaultValue(0)
-            .min(0)
-            .sliderRange(0, 100)
-            .build());
+        .name("Absorption Points")
+        .description("How much absorption.")
+        .defaultValue(0)
+        .min(0)
+        .sliderRange(0, 100)
+        .build()
+    );
+
     private final Setting<Integer> age = sgOptions.add(new IntSetting.Builder()
-            .name("Age")
-            .description("It's age, 0 is baby.")
-            .defaultValue(1)
-            .min(0)
-            .sliderRange(0, 100)
-            .build());
+        .name("Age")
+        .description("It's age, 0 is baby.")
+        .defaultValue(1)
+        .min(0)
+        .sliderRange(0, 100)
+        .build()
+    );
+
     public final Setting<Boolean> invincible = sgOptions.add(new BoolSetting.Builder()
-            .name("Invulnerable")
-            .description("Invulnerable or not")
-            .defaultValue(true)
-            .build()
+        .name("Invulnerable")
+        .description("Invulnerable or not")
+        .defaultValue(true)
+        .build()
     );
+
     public final Setting<Boolean> persist = sgOptions.add(new BoolSetting.Builder()
-            .name("Never Despawn")
-            .description("adds PersistenceRequired tag.")
-            .defaultValue(true)
-            .build()
+        .name("Never Despawn")
+        .description("adds PersistenceRequired tag.")
+        .defaultValue(true)
+        .build()
     );
+
     public final Setting<Boolean> noAI = sgOptions.add(new BoolSetting.Builder()
-            .name("NoAI")
-            .description("NoAI")
-            .defaultValue(false)
-            .build()
+        .name("NoAI")
+        .description("NoAI")
+        .defaultValue(false)
+        .build()
     );
+
     public final Setting<Boolean> falsefire = sgOptions.add(new BoolSetting.Builder()
-            .name("HasVisualFire")
-            .description("HasVisualFire or not")
-            .defaultValue(false)
-            .build()
+        .name("HasVisualFire")
+        .description("HasVisualFire or not")
+        .defaultValue(false)
+        .build()
     );
+
     public final Setting<Boolean> nograv = sgOptions.add(new BoolSetting.Builder()
-            .name("NoGravity")
-            .description("NoGravity or not")
-            .defaultValue(false)
-            .build()
+        .name("NoGravity")
+        .description("NoGravity or not")
+        .defaultValue(false)
+        .build()
     );
+
     public final Setting<Boolean> silence = sgOptions.add(new BoolSetting.Builder()
-            .name("Silent")
-            .description("adds Silent tag.")
-            .defaultValue(false)
-            .build()
+        .name("Silent")
+        .description("adds Silent tag.")
+        .defaultValue(false)
+        .build()
     );
+
     public final Setting<Boolean> glow = sgOptions.add(new BoolSetting.Builder()
-            .name("Glowing")
-            .description("Glowing or not")
-            .defaultValue(false)
-            .build()
+        .name("Glowing")
+        .description("Glowing or not")
+        .defaultValue(false)
+        .build()
     );
+
     public final Setting<Boolean> ignite = sgOptions.add(new BoolSetting.Builder()
-            .name("Ignited")
-            .description("Pre-ignite creeper or not.")
-            .defaultValue(true)
-            .build()
+        .name("Ignited")
+        .description("Pre-ignite creeper or not.")
+        .defaultValue(true)
+        .build()
     );
+
     public final Setting<Boolean> powah = sgOptions.add(new BoolSetting.Builder()
-            .name("Charged Creeper")
-            .description("powered creeper or not.")
-            .defaultValue(false)
-            .build()
+        .name("Charged Creeper")
+        .description("powered creeper or not.")
+        .defaultValue(false)
+        .build()
     );
+
     private final Setting<Integer> fuse = sgOptions.add(new IntSetting.Builder()
-            .name("Creeper/TNT Fuse")
-            .description("In ticks")
-            .defaultValue(20)
-            .min(0)
-            .sliderRange(0, 120)
-            .build());
+        .name("Creeper/TNT Fuse")
+        .description("In ticks")
+        .defaultValue(20)
+        .min(0)
+        .sliderRange(0, 120)
+        .build()
+    );
+
     private final Setting<Integer> exppower = sgOptions.add(new IntSetting.Builder()
-            .name("ExplosionPower/Radius")
-            .description("For Creepers and Fireballs")
-            .defaultValue(10)
-            .min(1)
-            .sliderMax(127)
-            .build());
+        .name("ExplosionPower/Radius")
+        .description("For Creepers and Fireballs")
+        .defaultValue(10)
+        .min(1)
+        .sliderMax(127)
+        .build()
+    );
+
     private final Setting<Integer> size = sgOptions.add(new IntSetting.Builder()
-            .name("Slime/Magma Cube Size")
-            .description("It's size, 100 is really big.")
-            .defaultValue(1)
-            .min(0)
-            .sliderRange(0, 100)
-            .build());
+        .name("Slime/Magma Cube Size")
+        .description("It's size, 100 is really big.")
+        .defaultValue(1)
+        .min(0)
+        .sliderRange(0, 100)
+        .build()
+    );
+
     private final Setting<Integer> radius = sgGeneral.add(new IntSetting.Builder()
-            .name("radius")
-            .description("radius they spawn from the player")
-            .defaultValue(30)
-            .sliderRange(1, 100)
-            .min(1)
-            .build());
+        .name("radius")
+        .description("radius they spawn from the player")
+        .defaultValue(30)
+        .sliderRange(1, 100)
+        .min(1)
+        .build()
+    );
 
     private final Setting<Integer> height = sgGeneral.add(new IntSetting.Builder()
-            .name("HeightAboveHead")
-            .description("How far from your Characters Y level to spawn at.")
-            .defaultValue(20)
-            .sliderRange(-63, 319)
-            .build());
+        .name("HeightAboveHead")
+        .description("How far from your Characters Y level to spawn at.")
+        .defaultValue(20)
+        .sliderRange(-63, 319)
+        .build()
+    );
 
     private final Setting<Integer> speed = sgGeneral.add(new IntSetting.Builder()
-            .name("speed")
-            .description("speed of entities")
-            .defaultValue(5)
-            .sliderRange(1, 10)
-            .min(1)
-            .max(10)
-            .build());
+        .name("speed")
+        .description("speed of entities")
+        .defaultValue(5)
+        .sliderRange(1, 10)
+        .min(1)
+        .max(10)
+        .build()
+    );
 
     private final Setting<Integer> delay = sgGeneral.add(new IntSetting.Builder()
-            .name("delay")
-            .description("its in ticks")
-            .defaultValue(2)
-            .sliderRange(0, 20)
-            .min(0)
-            .build());
+        .name("delay")
+        .description("its in ticks")
+        .defaultValue(2)
+        .sliderRange(0, 20)
+        .min(0)
+        .build()
+    );
 
 
     public AirstrikePlus() {
@@ -197,7 +235,7 @@ public class AirstrikePlus extends Module {
     final Random r = new Random();
     Vec3d origin = null;
     int i = 0;
-    private int mix=0;
+    private int mix = 0;
 
     private Vec3d pickRandomPos() {
         double x = r.nextDouble(radius.get() * 2) - radius.get() + origin.x;

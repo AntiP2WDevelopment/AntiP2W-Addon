@@ -1,22 +1,24 @@
 package addon.antip2w.modules.funny;
 
 import addon.antip2w.modules.Categories;
-import meteordevelopment.meteorclient.settings.*;
-import meteordevelopment.meteorclient.systems.modules.Module;
 import javazoom.jl.decoder.JavaLayerException;
+import javazoom.jl.player.FactoryRegistry;
 import javazoom.jl.player.advanced.AdvancedPlayer;
 import javazoom.jl.player.advanced.PlaybackEvent;
 import javazoom.jl.player.advanced.PlaybackListener;
+import meteordevelopment.meteorclient.settings.EnumSetting;
+import meteordevelopment.meteorclient.settings.IntSetting;
+import meteordevelopment.meteorclient.settings.Setting;
+import meteordevelopment.meteorclient.settings.SettingGroup;
+import meteordevelopment.meteorclient.systems.modules.Module;
 
 import javax.sound.sampled.*;
 import java.io.IOException;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
+//TODO: Fix volume
 public class Radio extends Module {
-    //TODO: Fix volume volume cuz my ears are bleeding
-
     private final SettingGroup sgGeneral = settings.createGroup("General");
 
     private final Setting<Radios> radioChannel = sgGeneral.add(new EnumSetting.Builder<Radios>()
@@ -29,23 +31,13 @@ public class Radio extends Module {
             .name("Volume")
             .description("Adjusts the volume of the radio.")
             .defaultValue(50)
-            .min(-1)
-            .max(1000)
+            .range(0, 100)
+            .sliderRange(0, 100)
             .build()
     );
 
     private AdvancedPlayer player;
     private SourceDataLine audioLine;
-    private static final Map<Radios, String> radioUrls = new HashMap<>();
-
-    static {
-        radioUrls.put(Radios.Radio1, "https://icast.connectmedia.hu/5202/live.mp3");
-        radioUrls.put(Radios.SlagerFM, "https://slagerfm.netregator.hu:7813/slagerfm128.mp3");
-        radioUrls.put(Radios.RetroRadio, "https://icast.connectmedia.hu/5002/live.mp3");
-        radioUrls.put(Radios.BestFM, "https://icast.connectmedia.hu/5102/live.mp3");
-        radioUrls.put(Radios.RockFM, "https://icast.connectmedia.hu/5301/live.mp3");
-        radioUrls.put(Radios.KossuthRadio, "https://icast.connectmedia.hu/4736/mr1.mp3");
-    }
 
     public Radio() {
         super(Categories.WIP, "Radio", "Its a radio bitch");
@@ -63,10 +55,10 @@ public class Radio extends Module {
 
     private void playRadio() {
         try {
-            String selectedRadioUrl = radioUrls.get(radioChannel.get());
+            String selectedRadioUrl = radioChannel.get().URL;
             if (selectedRadioUrl != null) {
                 URL radioStream = new URL(selectedRadioUrl);
-                player = new AdvancedPlayer(radioStream.openStream(), javazoom.jl.player.FactoryRegistry.systemRegistry().createAudioDevice());
+                player = new AdvancedPlayer(radioStream.openStream(), FactoryRegistry.systemRegistry().createAudioDevice());
                 player.setPlayBackListener(new PlaybackListener() {
                     @Override
                     public void playbackFinished(PlaybackEvent evt) {
@@ -76,15 +68,15 @@ public class Radio extends Module {
                     }
                 });
 
-                setVolume(volumeInt.get()/100);
+                setVolume(volumeInt.get());
 
-                new Thread(() -> {
+                CompletableFuture.runAsync(() -> {
                     try {
                         player.play(Integer.MAX_VALUE);
                     } catch (JavaLayerException e) {
                         e.printStackTrace();
                     }
-                }).start();
+                });
 
                 info("Playing " + radioChannel.get().toString() + "...");
             } else {
@@ -120,6 +112,17 @@ public class Radio extends Module {
     }
 
     public enum Radios {
-        Radio1, SlagerFM, RetroRadio, BestFM, RockFM, KossuthRadio
+        Radio1("https://icast.connectmedia.hu/5202/live.mp3"),
+        SlagerFM("https://slagerfm.netregator.hu:7813/slagerfm128.mp3"),
+        RetroRadio("https://icast.connectmedia.hu/5002/live.mp3"),
+        BestFM("https://icast.connectmedia.hu/5102/live.mp3"),
+        RockFM("https://icast.connectmedia.hu/5301/live.mp3"),
+        KossuthRadio("https://icast.connectmedia.hu/4736/mr1.mp3");
+
+        public final String URL;
+
+        Radios(String URL) {
+            this.URL = URL;
+        }
     }
 }

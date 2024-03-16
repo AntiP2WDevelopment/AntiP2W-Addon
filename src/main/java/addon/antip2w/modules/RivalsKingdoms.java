@@ -25,11 +25,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class RivalsKingdoms extends Module {
-    public static final HttpClient httpClient = HttpClient.newHttpClient();
-    public static final Pattern pattern = Pattern.compile("g>(.+?)<");
-
-    public static final HashMap<String, HashSet<Vec2s>> kingdoms = new HashMap<>();
-    public static final HashSet<Vec2s> chunks = new HashSet<>();
 
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
 
@@ -45,13 +40,15 @@ public class RivalsKingdoms extends Module {
         .description("The y level of the renderer.")
         .defaultValue(64)
         .sliderRange(-100, 320)
-        .build());
+        .build()
+    );
 
     private final Setting<Boolean> limitRange = sgGeneral.add(new BoolSetting.Builder()
         .name("Limit range")
         .description("Limits the range of rendering.")
         .defaultValue(true)
-        .build());
+        .build()
+    );
 
     private final Setting<Integer> range = sgGeneral.add(new IntSetting.Builder()
         .name("Range")
@@ -59,20 +56,29 @@ public class RivalsKingdoms extends Module {
         .defaultValue(64)
         .visible(limitRange::get)
         .sliderRange(10, 1024)
-        .build());
+        .build()
+    );
 
     private final Setting<Boolean> shouldSearch = sgGeneral.add(new BoolSetting.Builder()
         .name("Search by kingdom")
         .description("Search by name")
         .defaultValue(false)
-        .build());
+        .build()
+    );
 
     private final Setting<String> search = sgGeneral.add(new StringSetting.Builder()
         .name("Search")
         .description("Contain search")
         .defaultValue("EquaL")
         .visible(shouldSearch::get)
-        .build());
+        .build()
+    );
+    
+    public static final HttpClient httpClient = HttpClient.newHttpClient();
+    public static final Pattern pattern = Pattern.compile("g>(.+?)<");
+
+    public static final HashMap<String, HashSet<Vec2s>> kingdoms = new HashMap<>();
+    public static final HashSet<Vec2s> chunks = new HashSet<>();
 
     public RivalsKingdoms() {
         super(Categories.DEFAULT, "CapturedChunks", "Shows you captured chunks on Rivals Kingdoms servers. (use RivalsNocom to config)");

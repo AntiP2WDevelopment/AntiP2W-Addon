@@ -32,6 +32,7 @@ import java.util.function.Consumer;
 
 import static meteordevelopment.meteorclient.MeteorClient.mc;
 
+// TODO make the code better
 public class MinesweeperScreen extends GenericContainerScreen {
 
     // TODO : methodba rakni a menu updateeket
@@ -42,7 +43,7 @@ public class MinesweeperScreen extends GenericContainerScreen {
     private static long bestTime = 0;
     private static long lastTime = 0;
     private static final Module module = Modules.get().get("Minesweeper");
-    private static final EnumSetting<Minesweeper.Difficulties> difficultySetting = (EnumSetting<Minesweeper.Difficulties>) module.settings.get("Choose difficulty");
+    private static final EnumSetting<Minesweeper.Difficulty> difficultySetting = (EnumSetting<Minesweeper.Difficulty>) module.settings.get("Choose difficulty");
     private static final IntSetting mineSetting = (IntSetting) module.settings.get("mines");
     private boolean firstClick = true;
     private final TimerUtils timer = new TimerUtils();
@@ -51,7 +52,7 @@ public class MinesweeperScreen extends GenericContainerScreen {
     public MinesweeperScreen() {
         // new GenericContainerScreenHandler(ScreenHandlerType.GENERIC_9X6, -69, new PlayerInventory(mc.player), new SimpleInventory(81), 9)
         super(GenericContainerScreenHandler.createGeneric9x6(-69, new PlayerInventory(mc.player)), new PlayerInventory(mc.player), ((MutableText) Text.of("Minesweeper")).formatted(Formatting.UNDERLINE, Formatting.BLACK));
-        this.mineAmount = difficultySetting.get() == Minesweeper.Difficulties.CUSTOM ? mineSetting.get().byteValue() : difficultySetting.get().value;
+        this.mineAmount = difficultySetting.get() == Minesweeper.Difficulty.CUSTOM ? mineSetting.get().byteValue() : difficultySetting.get().value.get();
         generate();
         update();
     }
@@ -170,14 +171,14 @@ public class MinesweeperScreen extends GenericContainerScreen {
     }
 
     private void updateDifficultyTo(int ordinal) {
-        if (ordinal >= Minesweeper.Difficulties.values().length - 1) ordinal = 0;
-        if (ordinal < 0) ordinal = Minesweeper.Difficulties.values().length - 1;
-        difficultySetting.set(Minesweeper.Difficulties.values()[ordinal]);
+        if (ordinal >= Minesweeper.Difficulty.values().length - 1) ordinal = 0;
+        if (ordinal < 0) ordinal = Minesweeper.Difficulty.values().length - 1;
+        difficultySetting.set(Minesweeper.Difficulty.values()[ordinal]);
         MenuSlot.DIFFICULTY.itemStack.setCustomName(MenuSlot.DIFFICULTY.name.copy().append(" - "+difficultySetting.get().name()));
     }
 
     private void updateMineAmount() {
-        mineAmount = difficultySetting.get() == Minesweeper.Difficulties.CUSTOM ? mineSetting.get().byteValue() : difficultySetting.get().value;
+        mineAmount = difficultySetting.get() == Minesweeper.Difficulty.CUSTOM ? mineSetting.get().byteValue() : difficultySetting.get().value.get();
         MenuSlot.MINE_AMOUNT.itemStack.setCustomName(MenuSlot.MINE_AMOUNT.name.copy().append(" - "+mineAmount));
     }
 
@@ -228,7 +229,7 @@ public class MinesweeperScreen extends GenericContainerScreen {
                 else mineAmount++;
                 mineAmount = (byte) MathHelper.clamp(mineAmount, 0, 25);
                 updateMineAmount();
-                updateDifficultyTo(Minesweeper.Difficulties.CUSTOM.ordinal());
+                updateDifficultyTo(Minesweeper.Difficulty.CUSTOM.ordinal());
                 generate();
             }
         }

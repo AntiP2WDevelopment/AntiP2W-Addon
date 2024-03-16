@@ -36,7 +36,7 @@ dependencies {
     // Meteor
     modImplementation "meteordevelopment:meteor-client:${project.meteor_version}"
 
-    //javazoom (its for the radio)
+    // javazoom (its for the radio)
     implementation 'javazoom:jlayer:1.0.1'
     include 'javazoom:jlayer:1.0.1'
 }

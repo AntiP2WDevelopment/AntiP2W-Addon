@@ -6,11 +6,9 @@ import meteordevelopment.orbit.EventHandler;
 import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
 
 public class NoFall extends Module {
-
     public NoFall() {
         super(Categories.DEFAULT, "better-no-fall", "Universal No-Fall (works on almost any anticheat).");
     }
-
 
     @EventHandler
     private void onPreTick(SendMovementPacketsEvent.Post event) {

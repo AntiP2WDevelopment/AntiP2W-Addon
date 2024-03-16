@@ -23,7 +23,7 @@ public class SimulateCommand extends Command {
     public SimulateCommand() {
         super("simulate", "Keyboard input simulation.");
     }
-    //fix it or delete
+    //TODO: fix it or delete
 
     @Override
     public void build(LiteralArgumentBuilder<CommandSource> builder) {

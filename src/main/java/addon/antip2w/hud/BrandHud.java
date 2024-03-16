@@ -49,6 +49,13 @@ public class BrandHud extends HudElement {
     public void render(HudRenderer renderer) {
         spinProgress = (float) MathHelper.wrapDegrees(spinProgress + 9 * spinSpeed.get().floatValue() * renderer.delta * 20);
         double magicnumber = Math.sin(Math.toRadians(spinProgress));
-        renderer.texture(new Identifier("antip2w", "icon.png"), getX() + (double) getWidth() / 2 + (double) -getWidth() / 2 * magicnumber, getY(), getWidth() * magicnumber, getHeight(), Color.WHITE);
+        renderer.texture(
+            new Identifier("antip2w", "icon.png"),
+            getX() + (double) getWidth() / 2 + (double) -getWidth() / 2 * magicnumber,
+            getY(),
+            getWidth() * magicnumber,
+            getHeight(),
+            Color.WHITE
+        );
     }
 }

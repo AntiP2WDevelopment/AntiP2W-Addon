@@ -24,7 +24,10 @@ public class IRCCommand extends Command {
                         ChatUtils.errorPrefix("IRC", "Not running!");
                         return SINGLE_SUCCESS;
                     }
-                    String message = AntiP2W.MC.getGameProfile().getName() + " >> " + StringArgumentType.getString(ctx, "message");
+
+                    String message = StringArgumentType.getString(ctx, "message");
+                    message = AntiP2W.MC.getGameProfile().getName() + " >> " + message;
+
                     IRCHandler.sendAsync(message);
                     ChatUtils.infoPrefix("IRC", message);
                     return SINGLE_SUCCESS;

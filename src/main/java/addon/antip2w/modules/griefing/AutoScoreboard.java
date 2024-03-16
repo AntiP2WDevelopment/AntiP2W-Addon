@@ -21,40 +21,40 @@ public class AutoScoreboard extends Module {
     private final SettingGroup sgContent = settings.createGroup("Content Options");
 
     private final Setting<String> title = sgTitle.add(new StringSetting.Builder()
-            .name("title")
-            .description("Title of the scoreboard to create. Supports Starscript.")
-            .defaultValue("AntiP2W Client!")
-            .wide()
-            .renderer(StarscriptTextBoxRenderer.class)
-            .build()
+        .name("title")
+        .description("Title of the scoreboard to create. Supports Starscript.")
+        .defaultValue("AntiP2W Client!")
+        .wide()
+        .renderer(StarscriptTextBoxRenderer.class)
+        .build()
     );
 
     private final Setting<String> titleColor = sgTitle.add(new StringSetting.Builder()
-            .name("title-color")
-            .description("Color of the title")
-            .defaultValue("dark_red")
-            .wide()
-            .build()
+        .name("title-color")
+        .description("Color of the title")
+        .defaultValue("dark_red")
+        .wide()
+        .build()
     );
 
     private final Setting<List<String>> content = sgContent.add(new StringListSetting.Builder()
-            .name("content")
-            .description("Content of the scoreboard. Supports Starscript.")
-            .defaultValue(Arrays.asList(
-                    "Exteron says hi!",
-                    "AntiP2W Client on top!",
-                    "{player} was here",
-                    "{date}"
-            ))
-            .renderer(StarscriptTextBoxRenderer.class)
-            .build()
+        .name("content")
+        .description("Content of the scoreboard. Supports Starscript.")
+        .defaultValue(Arrays.asList(
+            "Exteron says hi!",
+            "AntiP2W Client on top!",
+            "{player} was here",
+            "{date}"
+        ))
+        .renderer(StarscriptTextBoxRenderer.class)
+        .build()
     );
 
     private final Setting<String> contentColor = sgContent.add(new StringSetting.Builder()
-            .name("content-color")
-            .description("Color of the content")
-            .defaultValue("red")
-            .build()
+        .name("content-color")
+        .description("Color of the content")
+        .defaultValue("red")
+        .build()
     );
 
     public AutoScoreboard() {
@@ -74,10 +74,9 @@ public class AutoScoreboard extends Module {
     private void onTick(TickEvent.Post event) {
         String scoreboardName = RandomStringUtils.randomAlphabetic(10).toLowerCase();
         String thecommand = "/scoreboard objectives add " + scoreboardName + " dummy {\"text\":\"" + MeteorStarscript.run(MeteorStarscript.compile(title.get())) + "\",\"color\":\"" + titleColor.get() + "\"}";
-        if (thecommand.length()<=257){
+        if (thecommand.length() <= 257) {
             ChatUtils.sendPlayerMsg(thecommand);
-        }
-        else {
+        } else {
             int characterstodelete = thecommand.length()-257;
             error("Title is too long. Shorten it by "+characterstodelete+" characters.");
             toggle();
@@ -85,7 +84,7 @@ public class AutoScoreboard extends Module {
         }
         ChatUtils.sendPlayerMsg("/scoreboard objectives setdisplay sidebar " + scoreboardName);
         int i = content.get().size();
-        for(String string : content.get()) {
+        for (String string : content.get()) {
             String randomName = RandomStringUtils.randomAlphabetic(10).toLowerCase();
             ChatUtils.sendPlayerMsg("/team add " + randomName);
             String thecommand2 = "/team modify " + randomName + " suffix {\"text\":\" " + MeteorStarscript.run(MeteorStarscript.compile(string)) + "\"}";
@@ -94,7 +93,7 @@ public class AutoScoreboard extends Module {
             }
             else {
                 int characterstodelete = thecommand2.length()-257;
-                error("This content line is too long ("+MeteorStarscript.run(MeteorStarscript.compile(string))+"). Shorten it by "+characterstodelete+" characters.");
+                error("This content line is too long (" + MeteorStarscript.run(MeteorStarscript.compile(string))+"). Shorten it by " + characterstodelete + " characters.");
                 toggle();
                 return;
             }

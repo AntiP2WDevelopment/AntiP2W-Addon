@@ -13,7 +13,6 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class DelayPackets extends Module {
-
     private final Queue<Packet<?>> delayedPackets = new LinkedList<>();
 
     public DelayPackets() {

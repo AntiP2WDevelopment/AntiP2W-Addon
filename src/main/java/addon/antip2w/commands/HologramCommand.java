@@ -1,5 +1,6 @@
 package addon.antip2w.commands;
 
+import addon.antip2w.AntiP2W;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import meteordevelopment.meteorclient.commands.Command;
 import meteordevelopment.meteorclient.utils.player.ChatUtils;
@@ -24,9 +25,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.concurrent.CompletableFuture;
 
+import static addon.antip2w.AntiP2W.LOG;
 import static com.mojang.brigadier.Command.SINGLE_SUCCESS;
-import static meteordevelopment.meteorclient.MeteorClient.LOG;
-import static meteordevelopment.meteorclient.MeteorClient.mc;
 
 public class HologramCommand extends Command {
     private String lastImagePath = null;
@@ -51,12 +51,14 @@ public class HologramCommand extends Command {
             return SINGLE_SUCCESS;
         }
         PointerBuffer filter;
-        if(!last) filter = BufferUtils.createPointerBuffer(1).put(MemoryUtil.memASCII("*jpg;*jpeg;*.png;*.bmp;*.gif")).rewind();
+        if(!last) filter = BufferUtils.createPointerBuffer(1)
+            .put(MemoryUtil.memASCII("*jpg;*jpeg;*.png;*.bmp;*.gif")).rewind();
         else filter = null;
         CompletableFuture.runAsync(() -> {
             String imagePath;
             if (!last) {
-                imagePath = TinyFileDialogs.tinyfd_openFileDialog("Select Image", null, filter, null, false);
+                imagePath = TinyFileDialogs.tinyfd_openFileDialog(
+                    "Select Image", null, filter, null, false);
                 if (imagePath == null) {
                     ChatUtils.info("Canceled");
                     return;
@@ -77,9 +79,13 @@ public class HologramCommand extends Command {
                 int width = image.getWidth();
                 int height = image.getHeight();
 
-                ItemStack lastStack = mc.player.getMainHandStack();
+                ItemStack lastStack = AntiP2W.MC.player.getMainHandStack();
                 for (int y = 0; y < height; y++) {
-                    BlockHitResult bhr = new BlockHitResult(mc.player.getPos().add(0, 1, 0), Direction.UP, new BlockPos(mc.player.getBlockPos().add(0, 1, 0)), false);
+                    BlockHitResult bhr = new BlockHitResult(AntiP2W.MC.player.getPos().add(0, 1, 0),
+                        Direction.UP,
+                        new BlockPos(AntiP2W.MC.player.getBlockPos().add(0, 1, 0)),
+                        false
+                    );
                     ItemStack hologram = new ItemStack(Items.COD_SPAWN_EGG);
                     NbtCompound entityTag = new NbtCompound();
                     hologram.setSubNbt("EntityTag", entityTag);
@@ -88,9 +94,9 @@ public class HologramCommand extends Command {
                     entityTag.putBoolean("Marker", true);
                     entityTag.putBoolean("Invisible", true);
                     NbtList pos = new NbtList();
-                    pos.add(NbtDouble.of(mc.player.getX()));
-                    pos.add(NbtDouble.of(mc.player.getY() + (height - y) * 0.23));
-                    pos.add(NbtDouble.of(mc.player.getZ()));
+                    pos.add(NbtDouble.of(AntiP2W.MC.player.getX()));
+                    pos.add(NbtDouble.of(AntiP2W.MC.player.getY() + (height - y) * 0.23));
+                    pos.add(NbtDouble.of(AntiP2W.MC.player.getZ()));
                     entityTag.put("Pos", pos);
                     StringBuilder JSON = new StringBuilder("[");
 
@@ -108,10 +114,10 @@ public class HologramCommand extends Command {
 
                     entityTag.putString("CustomName", JSON + "]");
 
-                    mc.interactionManager.clickCreativeStack(hologram, 36 + mc.player.getInventory().selectedSlot);
-                    mc.interactionManager.interactBlock(mc.player, Hand.MAIN_HAND, bhr);
+                    AntiP2W.MC.interactionManager.clickCreativeStack(hologram, 36 + AntiP2W.MC.player.getInventory().selectedSlot);
+                    AntiP2W.MC.interactionManager.interactBlock(AntiP2W.MC.player, Hand.MAIN_HAND, bhr);
                 }
-                mc.interactionManager.clickCreativeStack(lastStack, 36 + mc.player.getInventory().selectedSlot);
+                AntiP2W.MC.interactionManager.clickCreativeStack(lastStack, 36 + AntiP2W.MC.player.getInventory().selectedSlot);
                 ChatUtils.info("Loaded Image", image.getWidth(), image.getHeight());
 
             } catch (Exception e) {

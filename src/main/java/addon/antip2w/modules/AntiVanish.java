@@ -1,5 +1,6 @@
 package addon.antip2w.modules;
 
+import addon.antip2w.utils.MCUtil;
 import com.mojang.brigadier.suggestion.Suggestion;
 import meteordevelopment.meteorclient.events.game.ReceiveMessageEvent;
 import meteordevelopment.meteorclient.events.packets.PacketEvent;
@@ -22,7 +23,7 @@ public class AntiVanish extends Module {
 
     private final Setting<Integer> interval = sgGeneral.add(new IntSetting.Builder()
         .name("interval")
-        .description("Vanish check interval.")
+        .description("Vanish check interval (ticks)")
         .defaultValue(100)
         .min(0)
         .sliderMax(300)
@@ -31,15 +32,16 @@ public class AntiVanish extends Module {
 
     private final Setting<Mode> mode = sgGeneral.add(new EnumSetting.Builder<Mode>()
         .name("mode")
-        .defaultValue(Mode.LeaveMessage)
+        .description("The mode")
+        .defaultValue(Mode.OnLeave)
         .build()
     );
 
     private final Setting<String> command = sgGeneral.add(new StringSetting.Builder()
         .name("command")
-        .description("The completion command to detect player names.")
+        .description("The command used for command completion")
         .defaultValue("minecraft:msg")
-        .visible(() -> mode.get() == Mode.RealJoinMessage)
+        .visible(() -> mode.get() == Mode.CommandCompletion)
         .build()
     );
 
@@ -53,7 +55,7 @@ public class AntiVanish extends Module {
     private int timer = 0;
 
     public AntiVanish() {
-        super(Categories.DEFAULT, "anti-vanish", "Notifies user when a admin uses /vanish and does things");
+        super(Categories.DEFAULT, "anti-vanish", "Notifies when someone suddenly disappears");
     }
 
     @Override
@@ -73,7 +75,7 @@ public class AntiVanish extends Module {
 
     @EventHandler
     private void onPacket(PacketEvent.Receive event) {
-        if (mode.get() == Mode.RealJoinMessage && event.packet instanceof CommandSuggestionsS2CPacket packet) {
+        if (mode.get() == Mode.CommandCompletion && event.packet instanceof CommandSuggestionsS2CPacket packet) {
             if (completionIDs.contains(packet.getCompletionId())) {
                 var lastUsernames = completionPlayerCache.stream().toList();
 
@@ -83,7 +85,8 @@ public class AntiVanish extends Module {
 
                 if (lastUsernames.isEmpty()) return;
 
-                Predicate<String> joinedOrQuit = playerName -> lastUsernames.contains(playerName) != completionPlayerCache.contains(playerName);
+                Predicate<String> joinedOrQuit =
+                    playerName -> lastUsernames.contains(playerName) != completionPlayerCache.contains(playerName);
 
                 for (String playerName : completionPlayerCache) {
                     if (Objects.equals(playerName, mc.player.getName().getString())) continue;
@@ -116,9 +119,10 @@ public class AntiVanish extends Module {
         if (timer < interval.get()) return;
 
         switch (mode.get()) {
-            case LeaveMessage -> {
+            case OnLeave -> {
                 Map<UUID, String> oldPlayers = Map.copyOf(playerCache);
-                playerCache = mc.getNetworkHandler().getPlayerList().stream().collect(Collectors.toMap(e -> e.getProfile().getId(), e -> e.getProfile().getName()));
+                playerCache = MCUtil.networkHandler().getPlayerList().stream()
+                    .collect(Collectors.toMap(e -> e.getProfile().getId(), e -> e.getProfile().getName()));
 
                 for (UUID uuid : oldPlayers.keySet()) {
                     if (playerCache.containsKey(uuid)) continue;
@@ -128,10 +132,10 @@ public class AntiVanish extends Module {
                     }
                 }
             }
-            case RealJoinMessage -> {
-                int id = random.nextInt(200);
+            case CommandCompletion -> {
+                int id = random.nextInt(200) + 1000;
                 completionIDs.add(id);
-                mc.getNetworkHandler().sendPacket(new RequestCommandCompletionsC2SPacket(id, command.get() + " "));
+                MCUtil.sendPacket(new RequestCommandCompletionsC2SPacket(id, command.get() + " "));
             }
         }
         timer = 0;
@@ -139,7 +143,7 @@ public class AntiVanish extends Module {
     }
 
     public enum Mode {
-        LeaveMessage,
-        RealJoinMessage
+        OnLeave,
+        CommandCompletion
     }
 }

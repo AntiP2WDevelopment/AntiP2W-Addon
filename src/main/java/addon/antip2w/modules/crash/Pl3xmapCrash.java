@@ -14,8 +14,8 @@ import net.minecraft.network.packet.CustomPayload;
 import net.minecraft.network.packet.c2s.common.CustomPayloadC2SPacket;
 import net.minecraft.util.Identifier;
 
+//TODO: Remove?
 public class Pl3xmapCrash extends Module {
-
     private final SettingGroup sgGeneral = this.settings.getDefaultGroup();
 
     private final Setting<Integer> power = sgGeneral.add(new IntSetting.Builder()

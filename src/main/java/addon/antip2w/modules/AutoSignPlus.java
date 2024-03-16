@@ -27,12 +27,7 @@ import java.util.Objects;
 import static meteordevelopment.orbit.EventPriority.HIGHEST;
 
 public class AutoSignPlus extends Module {
-
-    private final HashSet<BlockPos> reinteract = new HashSet<>();
-    private final HashSet<BlockPos> interacted = new HashSet<>();
-
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
-
     private final SettingGroup sgFront = settings.createGroup("Front Side");
     private final SettingGroup sgBack = settings.createGroup("Back Side");
 
@@ -112,6 +107,9 @@ public class AutoSignPlus extends Module {
         .defaultValue(true)
         .build()
     );
+
+    private final HashSet<BlockPos> reinteract = new HashSet<>();
+    private final HashSet<BlockPos> interacted = new HashSet<>();
 
     public AutoSignPlus() {
         super(Categories.DEFAULT, "AutoSignPlus", "Extension for AutoSign");

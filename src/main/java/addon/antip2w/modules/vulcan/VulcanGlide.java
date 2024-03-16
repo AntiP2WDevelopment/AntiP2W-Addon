@@ -30,14 +30,9 @@ script.handle("onUnload", function () {
 }
      */
 
-    public VulcanGlide() {
-        super(Categories.DEFAULT, "Vulcan Glide", "");
-    }
-
     private final SettingGroup sgGeneral = settings.createGroup("General");
     private final SettingGroup sgFirst = settings.createGroup("First");
     private final SettingGroup sgSecond = settings.createGroup("Second");
-
     private final Setting<Integer> delay = sgGeneral.add(new IntSetting.Builder()
         .name("delay (in ticks)")
         .description("Delay between velocity changes.")
@@ -45,13 +40,12 @@ script.handle("onUnload", function () {
         .build()
     );
 
-//Executing the 2nd sat of Velocity
+    //Executing the 2nd sat of Velocity
     private final Setting<Boolean> booleanthing = sgGeneral.add(new BoolSetting.Builder()
         .name("2nd type of Velocity")
         .defaultValue(true)
         .build()
     );
-
     private final Setting<Boolean> VeloDebug = sgGeneral.add(new BoolSetting.Builder()
         .name("Velocity Debug")
         .defaultValue(false)
@@ -64,7 +58,6 @@ script.handle("onUnload", function () {
         .defaultValue(0)
         .build()
     );
-
     private final Setting<Boolean> firstXRelative = sgFirst.add(new BoolSetting.Builder()
         .name("Relative X")
         .defaultValue(true)
@@ -95,13 +88,12 @@ script.handle("onUnload", function () {
         .build()
     );
 
-//Second sat of Velocity Change
+    //Second sat of Velocity Change
     private final Setting<Double> secx = sgSecond.add(new DoubleSetting.Builder()
         .name("X")
         .defaultValue(0)
         .build()
     );
-
     private final Setting<Boolean> secXRelative = sgSecond.add(new BoolSetting.Builder()
         .name("Relative X")
         .defaultValue(true)
@@ -131,6 +123,10 @@ script.handle("onUnload", function () {
         .defaultValue(true)
         .build()
     );
+
+    public VulcanGlide() {
+        super(Categories.DEFAULT, "Vulcan Glide", "");
+    }
 
     @EventHandler
     private void onTick(TickEvent.Post event) {

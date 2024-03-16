@@ -2,6 +2,7 @@ package addon.antip2w.modules.griefing;
 
 import addon.antip2w.modules.Categories;
 import addon.antip2w.modules.VanillaFlight;
+import addon.antip2w.utils.MCUtil;
 import meteordevelopment.meteorclient.events.world.TickEvent;
 import meteordevelopment.meteorclient.mixininterface.IVec3d;
 import meteordevelopment.meteorclient.renderer.ShapeMode;
@@ -20,7 +21,7 @@ import net.minecraft.block.FallingBlock;
 import net.minecraft.entity.EntityPose;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
+import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket.PositionAndOnGround;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
@@ -138,8 +139,8 @@ public class AutoLC extends Module {
             goingDown ? mc.player.getY() : newPos.y,
             goingDown ? newPos.z : mc.player.getZ());
         if (isCollidingWithSomething(firstPacketPos) || isCollidingWithSomething(newPos)) return;
-        mc.player.networkHandler.sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(firstPacketPos.x, firstPacketPos.y, firstPacketPos.z, false));
-        mc.player.networkHandler.sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(newPos.x, newPos.y, newPos.z, true));
+        MCUtil.sendPacket(new PositionAndOnGround(firstPacketPos.x, firstPacketPos.y, firstPacketPos.z, false));
+        MCUtil.sendPacket(new PositionAndOnGround(newPos.x, newPos.y, newPos.z, true));
         mc.player.setPosition(newPos.x, newPos.y, newPos.z);
         mc.player.resetPosition(); // don't lerp pos because it looks wonky
     }

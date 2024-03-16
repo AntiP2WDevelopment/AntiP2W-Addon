@@ -29,13 +29,14 @@ public class ExplosiveHands extends Module {
     );
 
     private final Setting<Integer> strength = sgGeneral.add(new IntSetting.Builder()
-        .name("Strength")
+        .name("strength")
         .description("of the explosion")
         .defaultValue(10)
         .range(1, 127)
         .sliderRange(1, 127)
         .visible(creeper::get)
-        .build());
+        .build()
+    );
 
     public ExplosiveHands() {
         super(Categories.GRIEF, "explosive-hands", "Makes your hands explosive (requires creative mode)");

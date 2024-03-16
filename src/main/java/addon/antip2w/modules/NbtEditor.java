@@ -28,24 +28,31 @@ public class NbtEditor extends Module {
             .name("mode")
             .description("the mode")
             .defaultValue(Modes.Entity)
-            .build());
+            .build()
+    );
+
     private final Setting<String> nom = sgGeneral.add(new StringSetting.Builder()
             .name("Custom Name")
             .description("Name the Thing")
             .defaultValue("ItsMeTomTom")
-            .build());
+            .build()
+    );
+
     private final Setting<String> nomcolor = sgGeneral.add(new StringSetting.Builder()
             .name("Custom Name Color")
             .description("Color the Name")
             .defaultValue("red")
-            .build());
+            .build()
+    );
 
     private final Setting<String> entity = sgOptions.add(new StringSetting.Builder()
             .name("Entity to Spawn")
             .description("What is created. Ex: fireball, villager, minecart, lightning_bolt, magma cube, area effect cloud")
             .defaultValue("wither")
             .visible(() -> mode.get() == Modes.Entity)
-            .build());
+            .build()
+    );
+
     private final Setting<Item> itemlist = sgOptions.add(new ItemSetting.Builder()
             .name("Item to create.")
             .description("Pick one. If you aren't already holding an item this is what you get.")
@@ -53,6 +60,7 @@ public class NbtEditor extends Module {
             .visible(() -> (mode.get() == Modes.Item))
             .build()
     );
+
     public final Setting<Boolean> customname = sgOptions.add(new BoolSetting.Builder()
             .name("CustomNameVisible")
             .description("CustomNameVisible or not.")
@@ -68,7 +76,9 @@ public class NbtEditor extends Module {
             .min(0)
             .sliderRange(0, 10000)
             .visible(() -> mode.get() == Modes.Entity)
-            .build());
+            .build()
+    );
+
     private final Setting<Integer> absorption = sgOptions.add(new IntSetting.Builder()
             .name("Absorption Points")
             .description("How much absorption.")
@@ -76,7 +86,9 @@ public class NbtEditor extends Module {
             .min(0)
             .sliderRange(0, 10000)
             .visible(() -> mode.get() == Modes.Entity)
-            .build());
+            .build()
+    );
+
     private final Setting<Integer> age = sgOptions.add(new IntSetting.Builder()
             .name("Age")
             .description("It's age, 0 is baby.")
@@ -84,7 +96,9 @@ public class NbtEditor extends Module {
             .min(0)
             .sliderRange(0, 100)
             .visible(() -> mode.get() == Modes.Entity)
-            .build());
+            .build()
+    );
+
     public final Setting<Boolean> invincible = sgOptions.add(new BoolSetting.Builder()
             .name("Invulnerable")
             .description("Invulnerable or not")
@@ -92,6 +106,7 @@ public class NbtEditor extends Module {
             .visible(() -> mode.get() == Modes.Entity)
             .build()
     );
+
     public final Setting<Boolean> persist = sgOptions.add(new BoolSetting.Builder()
             .name("Never Despawn")
             .description("adds PersistenceRequired tag.")
@@ -99,6 +114,7 @@ public class NbtEditor extends Module {
             .visible(() -> mode.get() == Modes.Entity)
             .build()
     );
+
     public final Setting<Boolean> noAI = sgOptions.add(new BoolSetting.Builder()
             .name("NoAI")
             .description("NoAI")
@@ -106,6 +122,7 @@ public class NbtEditor extends Module {
             .visible(() -> mode.get() == Modes.Entity)
             .build()
     );
+
     public final Setting<Boolean> falsefire = sgOptions.add(new BoolSetting.Builder()
             .name("HasVisualFire")
             .description("HasVisualFire or not")
@@ -113,6 +130,7 @@ public class NbtEditor extends Module {
             .visible(() -> mode.get() == Modes.Entity)
             .build()
     );
+
     public final Setting<Boolean> nograv = sgOptions.add(new BoolSetting.Builder()
             .name("NoGravity")
             .description("NoGravity or not")
@@ -120,6 +138,7 @@ public class NbtEditor extends Module {
             .visible(() -> mode.get() == Modes.Entity)
             .build()
     );
+
     public final Setting<Boolean> silence = sgOptions.add(new BoolSetting.Builder()
             .name("Silent")
             .description("adds Silent tag.")
@@ -127,6 +146,7 @@ public class NbtEditor extends Module {
             .visible(() -> mode.get() == Modes.Entity)
             .build()
     );
+
     public final Setting<Boolean> glow = sgOptions.add(new BoolSetting.Builder()
             .name("Glowing")
             .description("Glowing or not")
@@ -134,6 +154,7 @@ public class NbtEditor extends Module {
             .visible(() -> mode.get() == Modes.Entity)
             .build()
     );
+
     public final Setting<Boolean> ignite = sgOptions.add(new BoolSetting.Builder()
             .name("Ignited")
             .description("Pre-ignite creeper or not.")
@@ -141,6 +162,7 @@ public class NbtEditor extends Module {
             .visible(() -> mode.get() == Modes.Entity)
             .build()
     );
+
     public final Setting<Boolean> powah = sgOptions.add(new BoolSetting.Builder()
             .name("Charged Creeper")
             .description("powered creeper or not.")
@@ -148,6 +170,7 @@ public class NbtEditor extends Module {
             .visible(() -> mode.get() == Modes.Entity)
             .build()
     );
+
     private final Setting<Integer> fuse = sgOptions.add(new IntSetting.Builder()
             .name("Creeper/TNT Fuse")
             .description("In ticks")
@@ -155,7 +178,9 @@ public class NbtEditor extends Module {
             .min(0)
             .sliderRange(0, 120)
             .visible(() -> mode.get() == Modes.Entity)
-            .build());
+            .build()
+    );
+
     private final Setting<Integer> exppower = sgOptions.add(new IntSetting.Builder()
             .name("ExplosionPower/Radius")
             .description("For Creepers and Fireballs")
@@ -163,7 +188,9 @@ public class NbtEditor extends Module {
             .min(1)
             .sliderMax(127)
             .visible(() -> mode.get() == Modes.Entity)
-            .build());
+            .build()
+    );
+
     private final Setting<Integer> size = sgOptions.add(new IntSetting.Builder()
             .name("Slime/Magma Cube Size")
             .description("It's size, 100 is really big.")
@@ -171,13 +198,17 @@ public class NbtEditor extends Module {
             .min(0)
             .sliderRange(0, 100)
             .visible(() -> mode.get() == Modes.Entity)
-            .build());
+            .build()
+    );
+
     private final Setting<pModes> potionmode = sgOptions.add(new EnumSetting.Builder<pModes>()
             .name("Potion Options")
             .description("the mode")
             .defaultValue(pModes.Splash)
             .visible(() -> mode.get() == Modes.Potion)
-            .build());
+            .build()
+    );
+
     private final Setting<List<StatusEffect>> effects = sgOptions.add(new StatusEffectListSetting.Builder()
             .name("Effects")
             .description("List of potion effects.")
@@ -185,12 +216,15 @@ public class NbtEditor extends Module {
             .visible(() -> mode.get() == Modes.Potion)
             .build()
     );
+
     private final Setting<String> ceffect = sgAEC.add(new StringSetting.Builder()
             .name("Area Effect Cloud Effects")
             .description("Cloud Potion Effect. Examples: harming, strong_harming, healing, healing, invisibility, long_invisibility, poison, long_poison, strong_poison")
             .defaultValue("strong_harming")
             .visible(() -> mode.get() == Modes.Entity)
-            .build());
+            .build()
+    );
+
     private final Setting<Integer> cloudduration = sgAEC.add(new IntSetting.Builder()
             .name("Cloud Duration(ticks)")
             .description("Cloud Duration in ticks")
@@ -198,7 +232,9 @@ public class NbtEditor extends Module {
             .min(0)
             .sliderRange(0, 20000)
             .visible(() -> mode.get() == Modes.Entity)
-            .build());
+            .build()
+    );
+
     private final Setting<Integer> cloudradius = sgAEC.add(new IntSetting.Builder()
             .name("Cloud Radius")
             .description("Cloud Radius in blocks")
@@ -206,13 +242,17 @@ public class NbtEditor extends Module {
             .min(0)
             .sliderRange(0, 200)
             .visible(() -> mode.get() == Modes.Entity)
-            .build());
+            .build()
+    );
+
     private final Setting<String> particle = sgAEC.add(new StringSetting.Builder()
             .name("Cloud Particle")
             .description("Cloud particles. Examples: note, flame, block cobblestone, item apple, item lava_bucket, block_marker dirt, falling_dust sand")
             .defaultValue("block_marker fire")
             .visible(() -> mode.get() == Modes.Entity)
-            .build());
+            .build()
+    );
+
     private final Setting<Integer> duration = sgOptions.add(new IntSetting.Builder()
             .name("Potion Duration(ticks)")
             .description("Potion Duration in ticks")
@@ -220,7 +260,9 @@ public class NbtEditor extends Module {
             .min(0)
             .sliderRange(0, 20000)
             .visible(() -> mode.get() == Modes.Potion)
-            .build());
+            .build()
+    );
+
     private final Setting<Integer> amplifier = sgOptions.add(new IntSetting.Builder()
             .name("Potion Amplifier")
             .description("Potion Amplifier")
@@ -228,7 +270,9 @@ public class NbtEditor extends Module {
             .min(0)
             .sliderRange(0, 255)
             .visible(() -> mode.get() == Modes.Potion)
-            .build());
+            .build()
+    );
+
     private final Setting<List<Enchantment>> enchants = sgOptions.add(new EnchantmentListSetting.Builder()
             .name("Enchants")
             .description("List of enchantments.")
@@ -236,6 +280,7 @@ public class NbtEditor extends Module {
             .visible(() -> mode.get() == Modes.Item)
             .build()
     );
+
     private final Setting<Integer> level = sgOptions.add(new IntSetting.Builder()
             .name("Enchantment Level")
             .description("Enchantment Level.")
@@ -243,11 +288,13 @@ public class NbtEditor extends Module {
             .min(0)
             .sliderRange(0, 32767)
             .visible(() -> mode.get() == Modes.Item)
-            .build());
+            .build()
+    );
 
     public NbtEditor() {
         super(Categories.DEFAULT, "NbtEditor", " CREATIVE MODE REQUIRED. Creates custom entities (spawn eggs) and enchanted items based on your specified options.");
     }
+
     @Override
     public void onActivate() {
         if (mc.player.getAbilities().creativeMode) {
