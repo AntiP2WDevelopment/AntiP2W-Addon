@@ -6,18 +6,19 @@ import javazoom.jl.player.FactoryRegistry;
 import javazoom.jl.player.advanced.AdvancedPlayer;
 import javazoom.jl.player.advanced.PlaybackEvent;
 import javazoom.jl.player.advanced.PlaybackListener;
+import meteordevelopment.meteorclient.events.world.TickEvent;
 import meteordevelopment.meteorclient.settings.EnumSetting;
 import meteordevelopment.meteorclient.settings.IntSetting;
 import meteordevelopment.meteorclient.settings.Setting;
 import meteordevelopment.meteorclient.settings.SettingGroup;
 import meteordevelopment.meteorclient.systems.modules.Module;
+import meteordevelopment.orbit.EventHandler;
 
 import javax.sound.sampled.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.concurrent.CompletableFuture;
 
-//TODO: Fix volume
 public class Radio extends Module {
     private final SettingGroup sgGeneral = settings.createGroup("General");
 
@@ -37,7 +38,6 @@ public class Radio extends Module {
     );
 
     private AdvancedPlayer player;
-    private SourceDataLine audioLine;
 
     public Radio() {
         super(Categories.WIP, "Radio", "Its a radio bitch");
@@ -72,7 +72,7 @@ public class Radio extends Module {
 
                 CompletableFuture.runAsync(() -> {
                     try {
-                        player.play(Integer.MAX_VALUE);
+                        player.play();
                     } catch (JavaLayerException e) {
                         e.printStackTrace();
                     }
@@ -82,31 +82,40 @@ public class Radio extends Module {
             } else {
                 error("Selected radio channel URL not found.");
             }
-        } catch (IOException | JavaLayerException | LineUnavailableException e) {
+        } catch (IOException | JavaLayerException e) {
             e.printStackTrace();
         }
     }
 
-    private void setVolume(int volume) throws LineUnavailableException {
-        if (audioLine != null) {
-            audioLine.close();
+    @EventHandler
+    private void onTick(TickEvent.Pre e) {
+        setVolume(volumeInt.get());
+    }
+
+    private void setVolume(int volume) {
+        Mixer.Info[] mixerInfo = AudioSystem.getMixerInfo();
+        for (Mixer.Info info : mixerInfo) {
+            Mixer mixer = AudioSystem.getMixer(info);
+            if (!mixer.isLineSupported(Port.Info.SPEAKER)) continue;
+            Port port;
+            try {
+                port = (Port)mixer.getLine(Port.Info.SPEAKER);
+                port.open();
+            } catch (LineUnavailableException e) {
+                info("ennek nem szabadna megtörténnie..");
+                return;
+            }
+            if (port.isControlSupported(FloatControl.Type.VOLUME)) {
+                FloatControl vol = (FloatControl)port.getControl(FloatControl.Type.VOLUME);
+                vol.setValue(volume / 100.0f);
+            }
+            port.close();
         }
-
-        audioLine = AudioSystem.getSourceDataLine(new AudioFormat(44100, 16, 2, true, true));
-        audioLine.open();
-        FloatControl volumeControl = (FloatControl) audioLine.getControl(FloatControl.Type.MASTER_GAIN);
-        float gain = volumeControl.getMaximum() * (volume / 100.0f);
-        volumeControl.setValue(gain);
-
-        audioLine.start();
     }
 
     private void stopRadio() {
         if (player != null) {
             player.close();
-            if (audioLine != null) {
-                audioLine.close();
-            }
             info("Radio stopped.");
         }
     }
