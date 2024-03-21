@@ -13,7 +13,6 @@ import meteordevelopment.meteorclient.utils.player.ChatUtils;
 import meteordevelopment.orbit.EventHandler;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.command.CommandSource;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.StringNbtReader;
@@ -79,18 +78,16 @@ public class CreativeFunnies extends Command {
     }
 
     private int getCommandSpawner(String commandstogether) {
-        ItemStack spawner = new ItemStack(Items.SPAWNER);
         String[] commands = commandstogether.split("\\|");
         StringBuilder minecarts = new StringBuilder();
         for (String command : commands) minecarts.append("{id: 'minecraft:command_block_minecart', Command: '%s'},".formatted(command));
         String nbt = "{BlockEntityTag:{SpawnCount:1,SpawnRange:0,Delay:0,SpawnData:{entity:{id:'minecraft:falling_block',BlockState:{Name:'minecraft:redstone_block'},Time:1,Passengers:[{id:'minecraft:falling_block',BlockState:{Name:'minecraft:activator_rail'},Time:1,Motion:[0.0,0.35,0.0],Passengers:[" + minecarts + "]}]}}}}";
-        CreativeUtils.giveItemWithNbtToEmptySlot(mc, Items.SPAWNER, nbt, Text.of("Place me!"));
+        CreativeUtils.giveItemWithNbtToEmptySlot(Items.SPAWNER, nbt, Text.of("Place me!"), 1);
         return SINGLE_SUCCESS;
     }
 
     private int getBees(int amount, boolean stronger) {
-        NbtCompound nbt = null;
-        NbtCompound bee = null;
+        NbtCompound nbt, bee;
         try {
             nbt = StringNbtReader.parse("{BlockEntityTag:{Bees:[]}}");
             if(stronger) bee = StringNbtReader.parse("{EntityData:{Attributes:[{Base:1000000.0d,Name:'minecraft:generic.movement_speed'}], id:'minecraft:bee'}, TicksInHive:2400}");
@@ -103,7 +100,7 @@ public class CreativeFunnies extends Command {
             nbt.getCompound("BlockEntityTag").getList("Bees", 10).addElement(i, bee);
         }
 
-        CreativeUtils.giveItemWithNbtToEmptySlot(mc, Items.BEE_NEST, nbt.asString(), Text.of("Bees.zip (%d)".formatted(amount)));
+        CreativeUtils.giveItemWithNbtToEmptySlot(Items.BEE_NEST, nbt.asString(), Text.of("Bees.zip (%d)".formatted(amount)), 1);
         return SINGLE_SUCCESS;
     }
 
@@ -127,7 +124,7 @@ public class CreativeFunnies extends Command {
         }
         String nbt = "{pages:[\"{\\\"nbt\\\":\\\"" + "a:{".repeat(2000) + "}".repeat(2000) + "\\\",\\\"entity\\\":\\\"" + mc.player.getUuid() + "\\\"}\"],title:\"0\",author:\"" + mc.player.getGameProfile().getName() + "\"}";
         for (int i = 0; i < strength; i++) {
-            CreativeUtils.giveItemWithNbtToSelectedSlot(mc, Items.WRITTEN_BOOK, nbt, Text.of("bye"));
+            CreativeUtils.giveItemWithNbtToSelectedSlot(Items.WRITTEN_BOOK, nbt, Text.of("bye"), 1);
             mc.interactionManager.interactItem(mc.player, Hand.MAIN_HAND);
         }
         return SINGLE_SUCCESS;

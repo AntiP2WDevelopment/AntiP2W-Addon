@@ -49,7 +49,7 @@ public class SuperHeroFX extends Module {
     );
 
     public final Setting<Boolean> customColor = sgGeneral.add(new BoolSetting.Builder()
-        .name("CustomColor")
+        .name("custom-color")
         .description("use a custom color or not")
         .defaultValue(false)
         .build()
@@ -70,12 +70,40 @@ public class SuperHeroFX extends Module {
         .build()
     );
 
+    public final Setting<Boolean> randomScale = sgGeneral.add(new BoolSetting.Builder()
+        .name("random-scale")
+        .description("if the scale should be random or not")
+        .defaultValue(false)
+        .build()
+    );
+
+    public final Setting<Double> minScale = sgGeneral.add(new DoubleSetting.Builder()
+        .name("minimum-scale")
+        .description("the minimum scale of the particles")
+        .range(0.1, 10)
+        .sliderRange(0.1, 10)
+        .defaultValue(1)
+        .visible(randomScale::get)
+        .build()
+    );
+
+    public final Setting<Double> maxScale = sgGeneral.add(new DoubleSetting.Builder()
+        .name("maximum-scale")
+        .description("the maximum scale of the particles")
+        .range(0.1, 10)
+        .sliderRange(0.1, 10)
+        .defaultValue(1)
+        .visible(randomScale::get)
+        .build()
+    );
+
     public final Setting<Double> scale = sgGeneral.add(new DoubleSetting.Builder()
         .name("scale")
         .description("the scale of the particles")
         .range(0.1, 10)
         .sliderRange(0.1, 10)
         .defaultValue(1)
+        .visible(() -> !randomScale.get())
         .build()
     );
 

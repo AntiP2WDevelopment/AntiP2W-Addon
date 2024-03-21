@@ -26,12 +26,18 @@ public class ClientPlayerInteractionManagerMixin {
         if (!module.isActive()) return;
         Random random = target.getWorld().random;
         for (int i = 0; i < module.amount.get(); i++) {
+            double scale;
+            if (module.randomScale.get())
+                scale = module.minScale.get() + random.nextFloat() * (module.maxScale.get() - module.minScale.get());
+            else
+                scale = module.scale.get();
+
             Vec3d pos = target.getPos();
             SuperHeroFXEffect effect = new SuperHeroFXEffect(
                 module.words.get().get(random.nextInt(module.words.get().size())),
                 module.customColor.get() ? SuperHeroFX.packColor(module.color.get()) : SuperHeroFX.randomColor(random),
                 module.shadow.get(),
-                module.scale.get().floatValue(),
+                (float) scale,
                 module.lifetime.get());
             target.getWorld().addParticle(effect, true, pos.x, target.getBodyY(random.nextFloat()), pos.z, 0, 0, 0);
         }

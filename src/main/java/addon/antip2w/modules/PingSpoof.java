@@ -8,9 +8,7 @@ import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.c2s.common.CommonPongC2SPacket;
 import net.minecraft.network.packet.c2s.common.KeepAliveC2SPacket;
 
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.CompletableFuture;
 
 public class PingSpoof extends Module {
     private final SettingGroup settingsGeneral = settings.getDefaultGroup();
@@ -50,7 +48,7 @@ public class PingSpoof extends Module {
 
     private final Setting<Boolean> delayPong = settingsGeneral.add(new BoolSetting.Builder()
         .name("delay-pong")
-        .description("Delay Pong packets.")
+        .description("Delay Pong / Transaction packets.")
         .defaultValue(true)
         .visible(() -> mode.get() == Mode.FAKE)
         .build()
@@ -71,19 +69,20 @@ public class PingSpoof extends Module {
                 sendLater(new CommonPongC2SPacket(p.getParameter()));
             }
         } else {
-            sendLater(event.packet);
             event.cancel();
+            sendLater(event.packet);
         }
     }
 
     private void sendLater(Packet<?> packet) {
-        long delay = desiredPing.get() - avgPing.get();
-        ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
-        executorService.schedule(() -> {
+        CompletableFuture.runAsync(() -> {
+            try {
+                Thread.sleep(desiredPing.get() - avgPing.get());
+            } catch (InterruptedException ignored) {
+            }
             if (mc.getNetworkHandler() == null) return;
             mc.getNetworkHandler().getConnection().send(packet, null); // bypass Meteor onSendPacket event
-            executorService.shutdown();
-        }, delay, TimeUnit.MILLISECONDS);
+        });
     }
 
     private enum Mode {

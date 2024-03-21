@@ -1,7 +1,7 @@
 package addon.antip2w.utils;
 
+import addon.antip2w.AntiP2W;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.StringNbtReader;
@@ -9,32 +9,39 @@ import net.minecraft.text.Text;
 import org.jetbrains.annotations.Nullable;
 
 public class CreativeUtils {
-    public static void giveItemWithNbtToEmptySlot(MinecraftClient mc, Item item, String nbt, @Nullable Text customName) {
+    public static void giveItemWithNbtToEmptySlot(Item item, @Nullable String nbt, @Nullable Text customName, int count) {
         ItemStack stack = item.getDefaultStack();
-        try {
-            stack.setNbt(StringNbtReader.parse(nbt));
-        } catch (CommandSyntaxException e) {
-            throw new RuntimeException(e);
+        stack.setCount(count);
+        if (nbt != null) {
+            try {
+                stack.setNbt(StringNbtReader.parse(nbt));
+            } catch (CommandSyntaxException e) {
+                throw new RuntimeException(e);
+            }
         }
+
         if(customName != null) stack.setCustomName(customName);
-        if (mc.player.getMainHandStack().isEmpty())
-            mc.interactionManager.clickCreativeStack(stack, 36 + mc.player.getInventory().selectedSlot);
+        if (AntiP2W.MC.player.getMainHandStack().isEmpty())
+            AntiP2W.MC.interactionManager.clickCreativeStack(stack, 36 + AntiP2W.MC.player.getInventory().selectedSlot);
         else {
-            int nextEmptySlot = mc.player.getInventory().getEmptySlot();
-            if (nextEmptySlot < 9) mc.interactionManager.clickCreativeStack(stack, 36 + nextEmptySlot);
+            int nextEmptySlot = AntiP2W.MC.player.getInventory().getEmptySlot();
+            if (nextEmptySlot < 9) AntiP2W.MC.interactionManager.clickCreativeStack(stack, 36 + nextEmptySlot);
             else
-                mc.interactionManager.clickCreativeStack(stack, 36 + mc.player.getInventory().selectedSlot);
+                AntiP2W.MC.interactionManager.clickCreativeStack(stack, 36 + AntiP2W.MC.player.getInventory().selectedSlot);
         }
     }
 
-    public static void giveItemWithNbtToSelectedSlot(MinecraftClient mc, Item item, String nbt, @Nullable Text customName) {
+    public static void giveItemWithNbtToSelectedSlot(Item item, @Nullable String nbt, @Nullable Text customName, int count) {
         ItemStack stack = item.getDefaultStack();
-        try {
-            stack.setNbt(StringNbtReader.parse(nbt));
-        } catch (CommandSyntaxException e) {
-            throw new RuntimeException(e);
+        stack.setCount(count);
+        if (nbt != null) {
+            try {
+                stack.setNbt(StringNbtReader.parse(nbt));
+            } catch (CommandSyntaxException e) {
+                throw new RuntimeException(e);
+            }
         }
         if(customName != null) stack.setCustomName(customName);
-        mc.interactionManager.clickCreativeStack(stack, 36 + mc.player.getInventory().selectedSlot);
+        AntiP2W.MC.interactionManager.clickCreativeStack(stack, 36 + AntiP2W.MC.player.getInventory().selectedSlot);
     }
 }

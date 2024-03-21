@@ -68,7 +68,7 @@ public class WitherAdvertise extends Module {
             if (!mc.world.getChunkManager().isChunkLoaded(ChunkSectionPos.getSectionCoord(x), ChunkSectionPos.getSectionCoord(z))) return;
             double y = mc.world.getTopY(Heightmap.Type.MOTION_BLOCKING, MathHelper.floor(x), MathHelper.floor(z)) + 20;
             String nbt = "{EntityTag:{id:\"minecraft:wither\",Pos:[" + x + "," + y + "," + z + "],Health:4206969f,CustomName:'{\"text\": \"" + name.get() + "\", \"color\": \"" + color.get() + "\"}'}}";
-            CreativeUtils.giveItemWithNbtToSelectedSlot(mc, Items.WITHER_SPAWN_EGG, nbt, null);
+            CreativeUtils.giveItemWithNbtToSelectedSlot(Items.WITHER_SPAWN_EGG, nbt, null, 1);
             BlockHitResult bhr = new BlockHitResult(mc.player.getPos().add(0, 1, 0), Direction.UP, new BlockPos(mc.player.getBlockPos().add(0, 1, 0)), false);
             mc.interactionManager.interactBlock(mc.player, Hand.MAIN_HAND, bhr);
         }

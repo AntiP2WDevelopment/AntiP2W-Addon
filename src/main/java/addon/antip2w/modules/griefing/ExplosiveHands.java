@@ -52,7 +52,7 @@ public class ExplosiveHands extends Module {
         if (creeper.get()) nbt = "{EntityTag:{id:\"minecraft:creeper\",Pos:[" + p.x + "," + (p.y - 1) + "," + p.z + "],Fuse:0,ignited:1b,Health:4206969f,ExplosionRadius:" + strength.get() + "b}}";
         else nbt = "{EntityTag:{id:\"minecraft:tnt\",Pos:[" + p.x + "," + p.y + "," + p.z + "],fuse:0}}";
         ItemStack lastStack = mc.player.getMainHandStack();
-        CreativeUtils.giveItemWithNbtToSelectedSlot(mc, Items.STRIDER_SPAWN_EGG, nbt, null);
+        CreativeUtils.giveItemWithNbtToSelectedSlot(Items.STRIDER_SPAWN_EGG, nbt, null, 1);
         BlockHitResult bhr = new BlockHitResult(mc.player.getPos().add(0, 1, 0), Direction.UP, new BlockPos(mc.player.getBlockPos().add(0, 1, 0)), false);
         mc.interactionManager.interactBlock(mc.player, Hand.MAIN_HAND, bhr);
         mc.interactionManager.clickCreativeStack(lastStack, 36 + mc.player.getInventory().selectedSlot);

@@ -73,7 +73,7 @@ public class DoomBoom extends Module {
             String nbt;
             if (creeper.get()) nbt = "{EntityTag:{id:\"minecraft:creeper\",Pos:[" + x + "," + y + "," + z + "],Fuse:0,ignited:1b,Health:4206969f,ExplosionRadius:" + strength.get() + "b}}";
             else nbt = "{EntityTag:{id:\"minecraft:tnt\",Pos:[" + x + "," + y + "," + z + "],fuse:0}}";
-            CreativeUtils.giveItemWithNbtToSelectedSlot(mc, Items.STRIDER_SPAWN_EGG, nbt, null);
+            CreativeUtils.giveItemWithNbtToSelectedSlot(Items.STRIDER_SPAWN_EGG, nbt, null, 1);
             BlockHitResult bhr = new BlockHitResult(mc.player.getPos().add(0, 1, 0), Direction.UP, new BlockPos(mc.player.getBlockPos().add(0, 1, 0)), false);
             mc.interactionManager.interactBlock(mc.player, Hand.MAIN_HAND, bhr);
         }

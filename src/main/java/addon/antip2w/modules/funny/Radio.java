@@ -23,18 +23,18 @@ public class Radio extends Module {
     private final SettingGroup sgGeneral = settings.createGroup("General");
 
     private final Setting<Radios> radioChannel = sgGeneral.add(new EnumSetting.Builder<Radios>()
-            .name("Radio Channel")
-            .defaultValue(Radios.Radio1)
-            .build()
+        .name("Radio Channel")
+        .defaultValue(Radios.Radio1)
+        .build()
     );
 
     private final Setting<Integer> volumeInt = sgGeneral.add(new IntSetting.Builder()
-            .name("Volume")
-            .description("Adjusts the volume of the radio.")
-            .defaultValue(50)
-            .range(0, 100)
-            .sliderRange(0, 100)
-            .build()
+        .name("Volume")
+        .description("Adjusts the volume of the radio.")
+        .defaultValue(50)
+        .range(0, 100)
+        .sliderRange(0, 100)
+        .build()
     );
 
     private AdvancedPlayer player;

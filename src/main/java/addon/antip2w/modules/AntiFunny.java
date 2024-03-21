@@ -1,6 +1,5 @@
-package addon.antip2w.modules.crash;
+package addon.antip2w.modules;
 
-import addon.antip2w.modules.Categories;
 import meteordevelopment.meteorclient.events.packets.PacketEvent;
 import meteordevelopment.meteorclient.settings.BoolSetting;
 import meteordevelopment.meteorclient.settings.Setting;
@@ -9,23 +8,20 @@ import meteordevelopment.meteorclient.systems.modules.Module;
 import meteordevelopment.meteorclient.utils.player.ChatUtils;
 import meteordevelopment.orbit.EventHandler;
 import meteordevelopment.orbit.EventPriority;
-import net.minecraft.network.packet.s2c.play.EntityVelocityUpdateS2CPacket;
-import net.minecraft.network.packet.s2c.play.ExplosionS2CPacket;
-import net.minecraft.network.packet.s2c.play.ParticleS2CPacket;
-import net.minecraft.network.packet.s2c.play.PlayerPositionLookS2CPacket;
+import net.minecraft.network.packet.s2c.play.*;
 
-public class AntiCrash extends Module {
+public class AntiFunny extends Module {
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
 
     private final Setting<Boolean> log = sgGeneral.add(new BoolSetting.Builder()
         .name("log")
-        .description("Logs when a crash packet is detected.")
+        .description("Logs when a funny packet is detected.")
         .defaultValue(false)
         .build()
     );
 
-    public AntiCrash() {
-        super(Categories.DEFAULT, "anti-crash", "Attempts to cancel packets that may crash the client.");
+    public AntiFunny() {
+        super(Categories.DEFAULT, "anti-funny", "Cancels funny packets that may freeze your game");
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
@@ -38,6 +34,8 @@ public class AntiCrash extends Module {
             cancel(event, "invalid movement");
         } else if (event.packet instanceof EntityVelocityUpdateS2CPacket packet && isInvalid(packet)) {
             cancel(event, "invalid velocity update");
+        } else if (event.packet instanceof GameStateChangeS2CPacket packet && isInvalid(packet)) {
+            cancel(event, "invalid game state change");
         }
     }
 
@@ -81,8 +79,12 @@ public class AntiCrash extends Module {
             packet.getVelocityZ() < -30_000_000;
     }
 
+    private boolean isInvalid(GameStateChangeS2CPacket packet) {
+        return packet.getReason() == GameStateChangeS2CPacket.DEMO_MESSAGE_SHOWN;
+    }
+
     private void cancel(PacketEvent.Receive event, String reason) {
-        if (log.get()) ChatUtils.info("Server attempted to crash you: " + reason);
+        if (log.get()) ChatUtils.info("Server sent funny packet to you: " + reason);
         event.cancel();
     }
 }

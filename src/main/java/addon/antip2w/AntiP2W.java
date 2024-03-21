@@ -4,7 +4,7 @@ import addon.antip2w.commands.*;
 import addon.antip2w.commands.CreativeFunnies.CreativeFunnies;
 import addon.antip2w.hud.BrandHud;
 import addon.antip2w.modules.*;
-import addon.antip2w.modules.crash.AntiCrash;
+import addon.antip2w.modules.AntiFunny;
 import addon.antip2w.modules.crash.CrashyCrash;
 import addon.antip2w.modules.crash.Pl3xmapCrash;
 import addon.antip2w.modules.funny.*;
@@ -39,7 +39,7 @@ public class AntiP2W extends MeteorAddon {
 
     private static void registerModules() {
         Modules.get().add(new AirstrikePlus());
-        Modules.get().add(new AntiCrash());
+        Modules.get().add(new AntiFunny());
         Modules.get().add(new AntiP2WRPC());
         Modules.get().add(new AntiVanish());
         Modules.get().add(new AutoLC());
@@ -97,6 +97,7 @@ public class AntiP2W extends MeteorAddon {
     }
 
     private static void registerCommands() {
+        Commands.add(new ClipboardGive());
         Commands.add(new CommandCompleteCrash());
         Commands.add(new CreativeFunnies());
         Commands.add(new FunnyCrash());
@@ -106,6 +107,7 @@ public class AntiP2W extends MeteorAddon {
         Commands.add(new PlayersCommand());
         Commands.add(new ShulkerCounterCommand());
         Commands.add(new SimulateCommand());
+        Commands.add(new SpectatorFunny());
         Commands.add(new WEConsoleClear());
     }
 
