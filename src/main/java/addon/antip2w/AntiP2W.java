@@ -85,6 +85,7 @@ public class AntiP2W extends MeteorAddon {
         Modules.get().add(new VulcanGlide());
         Modules.get().add(new VulcanSpider());
         Modules.get().add(new WitherAdvertise());
+        Modules.get().add(new Creeper_Alert());
     }
 
     private static void registerWIPModules() {
