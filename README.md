@@ -1,4 +1,4 @@
-## Please note that this prohect is uncontinued. There will be no further updates.
+## Please note that this project is uncontinued. There will be no further updates.
 
 # AntiP2W Tools
 Tools to help the Anti Pay-to-Win movement in block game
