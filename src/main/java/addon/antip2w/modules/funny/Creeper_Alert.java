@@ -1,5 +1,6 @@
-package addon.antip2w.modules;
+package addon.antip2w.modules.funny;
 
+import addon.antip2w.modules.Categories;
 import meteordevelopment.meteorclient.events.world.TickEvent;
 import meteordevelopment.meteorclient.settings.IntSetting;
 import meteordevelopment.meteorclient.settings.Setting;
